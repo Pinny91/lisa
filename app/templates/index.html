@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<title>{% block title %}{% endblock %}</title>
+<!-- HTMX -->
+<script src="{{ url_for('static', filename='js/htmx.js') }}"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="{{ url_for('static', filename='js/hearts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tailwind.config.js') }}"></script>
+<script src="{{ url_for('static', filename='js/countdown.js') }}"></script>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}" />
+<link href="https://fonts.googleapis.com/css2?family=Meddon&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Playwrite+NG+Modern:wght@100..400&display=swap" rel="stylesheet" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&display=swap" rel="stylesheet" />
+
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" />
+
+<body hx-boost="true" class="">
+  <main>
+    <section id="hero" class="flex items-center justify-center bg-primary relative">
+      <canvas id="hero-canvas" class="absolute"></canvas>
+      <div class="flex flex-col">
+        <h1 class="text-6xl">Lisa ❤ Marino</h1>
+        <h3 class="text-2xl ml-auto mr-2">19/07/2025</h3>
+      </div>
+    </section>
+    <header class="sticky top-0 z-10 flex justify-end">
+      <a href="#rsvp" class="mr-5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14" viewBox="-1 -40 42 40">
+          <path
+            d="M 4 0 C 2 0 0 -2 0 -4 L 0 -20 C 0 -21 3 -22 4 -22 L 20 -10 L 36 -22 C 37 -22 40 -21 40 -20 L 40 -4 C 40 -2 38 0 36 0 L 4 0 M 5 -21"
+            stroke="#000000"
+            stroke-width="1.5"
+            fill="white"
+          />
+          <path
+            d="M 20 -10 L 20 -10 M 5 -21 L 5 -34 C 5 -35 6 -35 6 -35 L 34 -35 C 34 -35 35 -35 35 -34 L 35 -21 L 20 -10 L 5 -21"
+            stroke="#000000"
+            stroke-width="1."
+            fill="white"
+          />
+          <line stroke-width=".8" stroke="#000000" x1="10" y1="-21" x2="29" y2="-21"></line>
+          <text x="7" y="-23" class="font-Playwrite text-[8px]">RSVP</text>
+        </svg>
+      </a>
+    </header>
+    <section class="flex flex-col h-screen w-screen bg-secondary text-primary">
+      <div id="timer" class="flex flex-row items-center justify-center gap-5 h-1/4">
+        <div class="flex flex-col justify-center items-center w-28">
+          <span id="months-value" class="text-9xl font-Mountains"></span>
+          <span>Maanden</span>
+        </div>
+        <div class="flex flex-col justify-center items-center w-28">
+          <span id="days-value" class="text-9xl font-Mountains"></span>
+          <span>Dagen</span>
+        </div>
+        <div class="flex flex-col justify-center items-center w-28">
+          <span id="hours-value" class="text-9xl font-Mountains"></span>
+          <span>Uren</span>
+        </div>
+        <div class="flex flex-col justify-center items-center w-28">
+          <span id="minutes-value" class="text-9xl font-Mountains"></span>
+          <span>Minuten</span>
+        </div>
+        <div class="flex flex-col justify-center items-center w-28">
+          <span id="seconds-value" class="text-9xl font-Mountains"></span>
+          <span>Seconden</span>
+        </div>
+      </div>
+      <div class="flex flex-row items-center justify-center gap-10 h-1/2 bg-primary text-secondary">
+        <div class="flex flex-col items-center justify-center gap-5">
+          <img src="" alt="face-lisa" width="250" height="250" class="bg-slate-300 rounded-full" />
+          <span class="text-5xl">Lisa Dossche</span>
+        </div>
+        <div class="text-9xl">❤</div>
+        <div class="flex flex-col items-center justify-center gap-5">
+          <img src="" alt="face-marino" width="250" height="250" class="bg-slate-300 rounded-full" />
+          <span class="text-5xl">Marino Dw</span>
+        </div>
+      </div>
+      <div class="h-1/4 flex flex-col justify-center items-center gap-4">
+        <h1 class="text-6xl">Ja, Wij Willen!</h1>
+        <p class="text-xl">Op 19 juli 2025 geven wij het ja woord te ..., België</p>
+      </div>
+    </section>
+    <section class="flex items-center justify-center h-screen w-screen bg-primary"></section>
+    <section class="flex items-center justify-center h-screen w-screen bg-secondary"></section>
+    <section class="flex items-center justify-center h-screen w-screen bg-primary"></section>
+    <section class="flex items-center justify-center h-screen w-screen bg-secondary"></section>
+
+    <section id="rsvp" class="flex items-center justify-center h-screen w-screen bg-primary">
+      <form class="flex flex-col gap-2">
+        <div class="flex flex-col gap-4">
+          <h1 class="text-4xl">Ben Jij Erbij?</h1>
+          <p class="text-sm">Laat Ons Weten of Je Aanwezig Bent</p>
+        </div>
+        <div class="flex flex-col gap-0.5">
+          <label for="name">Familie</label>
+          <input
+            required
+            type="text"
+            name="name"
+            class="text-sm rounded-lg block w-full p-2.5 bg-gray-700 text-white focus:border-none focus:outline-none"
+          />
+        </div>
+        <div class="flex flex-col gap-0.5">
+          <label for="email">Emailadres</label>
+          <input
+            required
+            type="email"
+            name="email"
+            class="text-sm rounded-lg block w-full p-2.5 bg-gray-700 text-white focus:border-none focus:outline-none"
+          />
+        </div>
+        <div class="flex flex-col gap-0.5">
+          <label for="attend">Mogen We Jullie Verwelkomen?</label>
+          <div class="flex flex-row gap-4">
+            <div class="grid place-items-center">
+              <input
+                id="attend-yes"
+                required
+                type="radio"
+                name="attend"
+                value="true"
+                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
+              />
+              <div id="attend-yes-dot" class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"></div>
+            </div>
+            <label for="true">Ja</label>
+          </div>
+          <div class="flex flex-row gap-4">
+            <div class="grid place-items-center">
+              <input
+                id="attend-no"
+                required
+                type="radio"
+                name="attend"
+                value="false"
+                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
+              />
+              <div id="attend-no-dot" class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"></div>
+            </div>
+            <label for="false">Nee</label>
+          </div>
+        </div>
+        <div>
+          <label for="count">Hoe Groot Is Jullie Gezelschap?</label>
+          <input
+            required
+            type="number"
+            size="40"
+            name="count"
+            class="text-sm rounded-lg block w-full p-2.5 bg-gray-700 text-white focus:border-none focus:outline-none"
+          />
+        </div>
+        <div>
+          <label for="remarks">Opmerkingen</label>
+          <textarea
+            name="remarks"
+            class="text-sm rounded-lg block w-full p-2.5 bg-gray-700 text-white focus:border-none focus:outline-none"
+          >
+          </textarea>
+        </div>
+      </form>
+    </section>
+    <section class="flex items-center justify-center h-screen w-screen bg-secondary"></section>
+  </main>
+</body>
