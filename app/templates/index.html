@@ -2,6 +2,8 @@
 <title>{% block title %}{% endblock %}</title>
 <!-- HTMX -->
 <meta name="robots" content="noindex" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <script src="{{ url_for('static', filename='js/htmx.js') }}"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="{{ url_for('static', filename='js/hearts.js') }}"></script>
@@ -90,7 +92,15 @@
     <section class="flex items-center justify-center h-screen w-screen bg-primary"></section>
     <section class="flex items-center justify-center h-screen w-screen bg-secondary"></section>
     <section class="flex items-center justify-center h-screen w-screen bg-primary"></section>
-    <section class="flex items-center justify-center h-screen w-screen bg-secondary"></section>
+    <section class="flex items-center justify-center h-screen w-screen bg-secondary">
+      <div class="p-10 w-screen h-screen">
+        <gmp-map center="50.914521976148826, 3.5464472846540858" zoom="10" map-id="DEMO_MAP_ID">
+          <gmp-advanced-marker position="50.914521976148826, 3.5464472846540858" title="Bondi Beach">
+            <img class="w-10 h-10" src="{{ url_for('static', filename='images/location-icon.svg') }}" />
+          </gmp-advanced-marker>
+        </gmp-map>
+      </div>
+    </section>
 
     <section id="rsvp" class="flex items-center justify-center h-screen w-screen bg-primary">
       <form class="flex flex-col gap-2">
@@ -161,12 +171,17 @@
           <label for="remarks">Opmerkingen</label>
           <textarea
             name="remarks"
+            placeholder=""
             class="text-sm rounded-lg block w-full p-2.5 bg-gray-700 text-white focus:border-none focus:outline-none"
-          >
-          </textarea>
+          ></textarea>
         </div>
       </form>
     </section>
     <section class="flex items-center justify-center h-screen w-screen bg-secondary"></section>
   </main>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl6FybACdGCH1yT1hjTtvOCrlmNgYEfJQ&loading=async&libraries=marker&v=beta&solution_channel=GMP_CCS_complexmarkers_v2"
+    defer
+  ></script>
 </body>
