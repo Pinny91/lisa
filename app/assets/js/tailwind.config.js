@@ -2,8 +2,8 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        primary: "#ffe790",
-        secondary: "#9d174d",
+        primary: "#c9d5b5",
+        secondary: "#e2dfc9",
       },
       fontFamily: {
         Playwrite: ['"Playwrite NG Modern"'],

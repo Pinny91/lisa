@@ -9,30 +9,71 @@
 <script src="{{ url_for('static', filename='js/hearts.js') }}"></script>
 <script src="{{ url_for('static', filename='js/tailwind.config.js') }}"></script>
 <script src="{{ url_for('static', filename='js/countdown.js') }}"></script>
+<script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}" />
-<link href="https://fonts.googleapis.com/css2?family=Meddon&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Playwrite+NG+Modern:wght@100..400&display=swap" rel="stylesheet" />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/default.css') }}"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Meddon&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Playwrite+NG+Modern:wght@100..400&display=swap"
+  rel="stylesheet"
+/>
 <link
   href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap"
   rel="stylesheet"
 />
-<link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&display=swap" rel="stylesheet" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400..700&display=swap"
+  rel="stylesheet"
+/>
 
-<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" />
+<link
+  rel="shortcut icon"
+  href="{{ url_for('static', filename='images/favicon.png') }}"
+/>
 
 <body hx-boost="true" class="">
   <main>
-    <section id="hero" class="flex items-center justify-center bg-primary relative">
+    <section
+      id="hero"
+      class="flex items-center justify-center bg-primary relative"
+    >
       <canvas id="hero-canvas" class="absolute"></canvas>
-      <div class="flex flex-col">
+      <div
+        class="flex flex-col opacity-0 transition-opacity duration-[3000ms] ease-out"
+        _="init add .opacity-100"
+      >
+        <img
+          class="h-[600px] object-contain"
+          src="{{ url_for('static', filename='images/logo.png') }}"
+        />
+
+        {#
         <h1 class="text-6xl">Lisa ❤ Marino</h1>
         <h3 class="text-2xl ml-auto mr-2">19/07/2025</h3>
+        #}
       </div>
     </section>
     <header class="sticky top-0 z-10 flex justify-end">
       <a href="#rsvp" class="mr-5">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14" viewBox="-1 -40 42 40">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-14 h-14"
+          viewBox="-1 -40 42 40"
+        >
           <path
             d="M 4 0 C 2 0 0 -2 0 -4 L 0 -20 C 0 -21 3 -22 4 -22 L 20 -10 L 36 -22 C 37 -22 40 -21 40 -20 L 40 -4 C 40 -2 38 0 36 0 L 4 0 M 5 -21"
             stroke="#000000"
@@ -45,68 +86,165 @@
             stroke-width="1."
             fill="white"
           />
-          <line stroke-width=".8" stroke="#000000" x1="10" y1="-21" x2="29" y2="-21"></line>
+          <line
+            stroke-width=".8"
+            stroke="#000000"
+            x1="10"
+            y1="-21"
+            x2="29"
+            y2="-21"
+          ></line>
           <text x="7" y="-23" class="font-Playwrite text-[8px]">RSVP</text>
         </svg>
       </a>
     </header>
-    <section class="flex flex-col h-screen w-screen bg-secondary text-primary">
-      <div id="timer" class="flex flex-row items-center justify-center gap-5 h-1/4">
+    <section class="flex flex-col h-screen w-screen bg-secondary">
+      <div
+        id="timer"
+        class="flex flex-row items-center justify-center gap-5 h-1/4"
+      >
         <div class="flex flex-col justify-center items-center w-28">
-          <span id="months-value" class="text-9xl font-Mountains"></span>
+          <span id="months-value" class="text-9xl"></span>
           <span>Maanden</span>
         </div>
         <div class="flex flex-col justify-center items-center w-28">
-          <span id="days-value" class="text-9xl font-Mountains"></span>
+          <span id="days-value" class="text-9xl"></span>
           <span>Dagen</span>
         </div>
         <div class="flex flex-col justify-center items-center w-28">
-          <span id="hours-value" class="text-9xl font-Mountains"></span>
+          <span id="hours-value" class="text-9xl"></span>
           <span>Uren</span>
         </div>
         <div class="flex flex-col justify-center items-center w-28">
-          <span id="minutes-value" class="text-9xl font-Mountains"></span>
+          <span id="minutes-value" class="text-9xl"></span>
           <span>Minuten</span>
         </div>
         <div class="flex flex-col justify-center items-center w-28">
-          <span id="seconds-value" class="text-9xl font-Mountains"></span>
+          <span id="seconds-value" class="text-9xl"></span>
           <span>Seconden</span>
         </div>
       </div>
-      <div class="flex flex-row items-center justify-center gap-10 h-1/2 bg-primary text-secondary">
+      <div
+        class="flex flex-row items-center justify-center gap-10 h-1/2 bg-slate-100"
+      >
         <div class="flex flex-col items-center justify-center gap-5">
-          <img src="" alt="face-lisa" width="250" height="250" class="bg-slate-300 rounded-full" />
+          <img
+            src=""
+            alt="face-lisa"
+            width="250"
+            height="250"
+            class="bg-slate-300 rounded-full"
+          />
           <span class="text-5xl">Lisa Dossche</span>
         </div>
         <div class="text-9xl">❤</div>
         <div class="flex flex-col items-center justify-center gap-5">
-          <img src="" alt="face-marino" width="250" height="250" class="bg-slate-300 rounded-full" />
-          <span class="text-5xl">Marino Dw</span>
+          <img
+            src=""
+            alt="face-marino"
+            width="250"
+            height="250"
+            class="bg-slate-300 rounded-full"
+          />
+          <span class="text-5xl">Marino De Wispelaere</span>
         </div>
       </div>
       <div class="h-1/4 flex flex-col justify-center items-center gap-4">
         <h1 class="text-6xl">Ja, Wij Willen!</h1>
-        <p class="text-xl">Op 19 juli 2025 geven wij het ja woord te ..., België</p>
+        <p class="text-xl">
+          Op 19 juli 2025 geven wij het ja woord te ..., België
+        </p>
       </div>
     </section>
-    <section class="flex items-center justify-center h-screen w-screen bg-primary"></section>
-    <section class="flex items-center justify-center h-screen w-screen bg-secondary"></section>
-    <section class="flex items-center justify-center h-screen w-screen bg-primary"></section>
-    <section class="flex items-center justify-center h-screen w-screen bg-secondary">
-      <div class="p-10 w-screen h-screen">
-        <gmp-map center="50.914521976148826, 3.5464472846540858" zoom="10" map-id="DEMO_MAP_ID">
-          <gmp-advanced-marker position="50.914521976148826, 3.5464472846540858" title="Bondi Beach">
-            <img class="w-10 h-10" src="{{ url_for('static', filename='images/location-icon.svg') }}" />
-          </gmp-advanced-marker>
-        </gmp-map>
+    <section
+      class="flex items-center justify-center h-screen w-screen bg-slate-100"
+    ></section>
+    <section
+      class="flex items-center justify-center h-screen w-screen bg-secondary"
+    ></section>
+    <section
+      class="flex flex-col items-center justify-center h-screen w-screen bg-secondary"
+    >
+      <div class="p-4"><h1 class="text-6xl">Waar & Wanneer</h1></div>
+      <div class="grid grid-cols-2 w-[calc(100%-7px)] h-full">
+        <div class="w-full h-full">
+          <gmp-map
+            center="50.914521976148826, 3.5464472846540858"
+            zoom="15"
+            map-id="MapHTRP"
+          >
+            <gmp-advanced-marker
+              position="50.914521976148826, 3.5464472846540858"
+              title="Hof ter Rode Poorte"
+            >
+              <img
+                class="w-10 h-10"
+                src="{{ url_for('static', filename='images/location-icon.svg') }}"
+              />
+            </gmp-advanced-marker>
+          </gmp-map>
+        </div>
+        <div class="flex flex-col px-2 gap-2">
+          <div class="p-4 bg-slate-100 rounded">
+            <h2 class="text-4xl">Gemeente</h2>
+            <p class="">
+              Wij geven elkaar om 12u het jawoord in de gemeente samen met onze
+              getuigen en dichte familie.
+            </p>
+            <p class="font-bold">
+              Zaterdag, 19 juli, 2025 — 12.00 — Stadhuis, Markt 1, 9770 Kruisem
+            </p>
+          </div>
+          <div class="p-4 bg-slate-100 rounded">
+            <h2 class="text-4xl">Ceremonie</h2>
+            <p class="">
+              Om ..u geven wij elkaar nog eens het jawoord aan onze
+              Rent-a-priest Steven D’hoore in de prachtige rozentuin van Hof ter
+              Rode Poorte waar iedereen die wil bij mag zijn.
+            </p>
+            <p class="font-bold">
+              Zaterdag, 19 juli, 2025 — .. — Rozentuin, Hof ter Rode Poorte,
+              Ropoortstraatje 1, 9770 Kruisem
+            </p>
+          </div>
+          <div class="p-4 bg-slate-100 rounded">
+            <h2 class="text-4xl">Huwelijksfestival</h2>
+            <p class="">
+              We kijken ernaar uit om deze speciale dag samen met jullie allen
+              te vieren tijdens ons huwelijksfestival in Hof ter Rode Poorte.
+            </p>
+            <ul>
+              <li>..u - Ontvangst & receptie</li>
+              <li>..u - Start dinner</li>
+              <li>..u - Start dansfeest</li>
+              <li>..u - Einde feest</li>
+            </ul>
+            <p class="font-bold">
+              Zaterdag, 19 juli, 2025 — .. — Hof ter Rode Poorte,
+              Ropoortstraatje 1, 9770 Kruisem
+            </p>
+          </div>
+        </div>
       </div>
+    </section>
+    <section
+      class="flex flex-col items-center justify-center h-screen w-screen bg-slate-100"
+    >
+      <div class="p-4"><h1 class="text-6xl">Cadeautip</h1></div>
+      <p>
+        Mocht u ons met iets leuks willen verrassen, hopen wij dat het in een
+        envelopje zal passen of rek.nr ..
+      </p>
     </section>
 
-    <section id="rsvp" class="flex items-center justify-center h-screen w-screen bg-primary">
-      <form class="flex flex-col gap-2">
+    <section
+      id="rsvp"
+      class="flex items-center justify-center h-screen w-screen bg-primary"
+    >
+      <form class="flex flex-col gap-2 w-[500px]">
         <div class="flex flex-col gap-4">
           <h1 class="text-4xl">Ben Jij Erbij?</h1>
-          <p class="text-sm">Laat Ons Weten of Je Aanwezig Bent</p>
+          <p class="text-sm">Laat ons weten of je aanwezig bent</p>
         </div>
         <div class="flex flex-col gap-0.5">
           <label for="name">Familie</label>
@@ -127,7 +265,24 @@
           />
         </div>
         <div class="flex flex-col gap-0.5">
-          <label for="attend">Mogen We Jullie Verwelkomen?</label>
+          <label for="attend">Mogen we jullie verwelkomen?</label>
+          <div class="flex flex-row gap-4">
+            <div class="grid place-items-center">
+              <input
+                id="attend-yes"
+                required
+                type="radio"
+                name="attend"
+                value="true"
+                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none ring-offset-gray-800 bg-gray-700"
+              />
+              <div
+                id="attend-yes-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
+            </div>
+            <label for="true">Wij zijn graag aanwezig vanaf de ceremonie</label>
+          </div>
           <div class="flex flex-row gap-4">
             <div class="grid place-items-center">
               <input
@@ -138,10 +293,14 @@
                 value="true"
                 class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
               />
-              <div id="attend-yes-dot" class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"></div>
+              <div
+                id="attend-yes-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
             </div>
-            <label for="true">Ja</label>
+            <label for="true">Wij zijn graag aanwezig vanaf de receptie</label>
           </div>
+
           <div class="flex flex-row gap-4">
             <div class="grid place-items-center">
               <input
@@ -152,13 +311,16 @@
                 value="false"
                 class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
               />
-              <div id="attend-no-dot" class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"></div>
+              <div
+                id="attend-no-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
             </div>
-            <label for="false">Nee</label>
+            <label for="false">Sorry wij kunnen er niet bij zijn</label>
           </div>
         </div>
         <div>
-          <label for="count">Hoe Groot Is Jullie Gezelschap?</label>
+          <label for="count">Hoe groot is jullie gezelschap?</label>
           <input
             required
             type="number"
@@ -167,6 +329,64 @@
             class="text-sm rounded-lg block w-full p-2.5 bg-gray-700 text-white focus:border-none focus:outline-none"
           />
         </div>
+        <div class="flex flex-col gap-0.5">
+          <label for="attend">Voedselvoorkeuren</label>
+          <div class="flex flex-row gap-4">
+            <div class="grid place-items-center">
+              <input
+                id="attend-yes"
+                required
+                type="checkbox"
+                name="attend"
+                value="true"
+                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none ring-offset-gray-800 bg-gray-700"
+              />
+              <div
+                id="attend-yes-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
+            </div>
+            <label for="true">Wij lusten alles</label>
+          </div>
+          <div class="flex flex-row gap-4">
+            <div class="grid place-items-center">
+              <input
+                id="attend-yes"
+                required
+                type="checkbox"
+                name="attend"
+                value="true"
+                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
+              />
+              <div
+                id="attend-yes-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
+            </div>
+            <label for="true">Vegetarisch</label>
+          </div>
+
+          <div class="flex flex-row gap-4">
+            <div class="grid place-items-center">
+              <input
+                id="attend-no"
+                required
+                type="checkbox"
+                name="attend"
+                value="false"
+                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
+              />
+              <div
+                id="attend-no-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
+            </div>
+            <label for="false">
+              Allergiëen? (vul deze aan bij de opmerkingen)</label
+            >
+          </div>
+        </div>
+
         <div>
           <label for="remarks">Opmerkingen</label>
           <textarea
@@ -177,7 +397,47 @@
         </div>
       </form>
     </section>
-    <section class="flex items-center justify-center h-screen w-screen bg-secondary"></section>
+    <section
+      class="grid grid-cols-2 items-center justify-center h-screen w-screen bg-secondary"
+    >
+      <div class="flex flex-col justify-center items-center gap-4">
+        <h1 class="text-6xl">Getuige Marino</h1>
+        <img
+          class="rounded-full object-cover w-[calc(50vw-100px)] h-[calc(50vw-100px)]"
+          src="{{ url_for('static', filename='images/Massimo Van Haver.jpeg') }}"
+          alt="Massimo Van Haver"
+        />
+        <p class="text-xl font-light">Massimo Van Haver</p>
+      </div>
+      <div class="flex flex-col justify-center items-center gap-4">
+        <h1 class="text-6xl">Getuige Lisa</h1>
+        <img
+          class="rounded-full object-cover w-[calc(50vw-100px)] h-[calc(50vw-100px)]"
+          src="{{ url_for('static', filename='images/Marijke Brain.jpeg') }}"
+          alt="Marijke Brain"
+        />
+        <p class="text-xl">Marijke Brain</p>
+      </div>
+    </section>
+    <section
+      class="flex flex-col items-center justify-center h-screen w-screen bg-secondary"
+    >
+      <div><h1 class="text-6xl">Bruidskindjes</h1></div>
+      <div class="grid grid-cols-3">
+        <div>
+          <img src="" alt="Aurélie De Wispelaere" />
+          <p>Aurélie De Wispelaere</p>
+        </div>
+        <div>
+          <img src="" alt="Gastón De Wispelaere" />
+          <p>Aurélie De Wispelaere</p>
+        </div>
+        <div>
+          <img src="" alt="Otis Van Haver" />
+          <p>Otis Van Haver</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script
