@@ -1,6 +1,8 @@
-from flask import render_template
+from flask import Flask, render_template
 from config import app, mail
 from flask_mail import Mail, Message
+
+app = Flask(__name__, static_folder="assets")
 
 
 @app.route("/")
