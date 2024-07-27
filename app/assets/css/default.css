@@ -14,7 +14,7 @@ body {
 
 main {
   scroll-snap-type: y mandatory;
-  scroll-snap-points-y: repeat(100vh);
+  /* scroll-snap-points-y: repeat(100vh); */
   overflow-y: scroll;
   overflow-x: hidden;
   height: 100%;
@@ -24,6 +24,12 @@ section {
   height: 100vh;
   scroll-snap-align: start;
   position: relative;
+}
+
+#rsvp {
+  scroll-snap-align: none;
+  overflow-y: auto;
+  height: auto; /* Adjust the height as needed */
 }
 
 h1,
