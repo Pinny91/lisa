@@ -68,3 +68,11 @@ h3 {
 #attend-no:checked ~ #attend-no-dot {
   display: block;
 }
+
+.h-closed {
+  max-height: 0px;
+}
+
+.h-open {
+  max-height: 8rem /* 128px */;
+}

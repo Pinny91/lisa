@@ -54,9 +54,9 @@ const renderHearts = () => {
 
       //   object.position[0] += (Math.random() * object.speed) / 4;
 
-      context.font = `${object.size}px Arial`;
+      context.font = `bold ${object.size}px "Font Awesome 6 Free"`;
       context.fillStyle = object.color;
-      context.fillText("❤", object.position[0], object.position[1]);
+      context.fillText("\uf004", object.position[0], object.position[1]);
 
       if (object.position[1] - object.size > canvas.height) {
         removals.push(i);
@@ -83,7 +83,9 @@ const renderHearts = () => {
 };
 
 // document.addEventListener("load", renderHearts);
-window.onload = renderHearts;
+document.fonts.ready.then((_) => {
+  window.onload = renderHearts;
+});
 
 window.addEventListener("resize", resizeCanvas, false);
 

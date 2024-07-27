@@ -9,6 +9,12 @@ tailwind.config = {
         Playwrite: ['"Playwrite NG Modern"'],
         Mountains: ['"Mountains of Christmas"'],
       },
+      gridTemplateRows: {
+        "where-when": "1fr auto",
+      },
+      boxShadow: {
+        custom: "inset 0 0 1.25rem #c9d5b5",
+      },
     },
   },
 };

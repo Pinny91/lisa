@@ -10,6 +10,7 @@
 <script src="{{ url_for('static', filename='js/tailwind.config.js') }}"></script>
 <script src="{{ url_for('static', filename='js/countdown.js') }}"></script>
 <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+<script defer async src="https://kit.fontawesome.com/e0c8bcf022.js" crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}" />
 <link href="https://fonts.googleapis.com/css2?family=Meddon&display=swap" rel="stylesheet" />
@@ -32,14 +33,27 @@
     <section id="hero" class="flex items-center justify-center bg-primary relative">
       <canvas id="hero-canvas" class="absolute"></canvas>
       <div class="flex flex-col opacity-0 transition-opacity duration-[3000ms] ease-out" _="init add .opacity-100">
-        <img class="h-[600px] object-contain" src="{{ url_for('static', filename='images/logo.png') }}" />
-
+        <img
+          class="h-[600px] md:w-full rounded-full px-5 mx-4 bg-white object-contain shadow-custom md:py-4"
+          src="{{ url_for('static', filename='images/logo2.png') }}"
+        />
         {#
         <h1 class="text-6xl">Lisa ❤ Marino</h1>
         <h3 class="text-2xl ml-auto mr-2">19/07/2025</h3>
         #}
       </div>
     </section>
+    <section id="hero" class="flex items-center justify-center bg-primary relative">
+      <canvas id="hero-canvas" class="absolute"></canvas>
+      <div class="flex flex-col opacity-0 transition-opacity duration-[3000ms] ease-out" _="init add .opacity-100">
+        <img class="h-[600px] md:w-full object-contain" src="{{ url_for('static', filename='images/logo.png') }}" />
+        {#
+        <h1 class="text-6xl">Lisa ❤ Marino</h1>
+        <h3 class="text-2xl ml-auto mr-2">19/07/2025</h3>
+        #}
+      </div>
+    </section>
+
     <header class="sticky top-0 z-10 flex justify-end bg-transparent">
       <a href="#rsvp" class="mr-5">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 md:w-14 md:h-14" viewBox="-1 -40 42 40">
@@ -60,6 +74,7 @@
         </svg>
       </a>
     </header>
+
     <section class="flex flex-col h-screen w-screen bg-secondary">
       <div id="timer" class="flex flex-row items-center justify-center gap-5 h-1/4 px-2">
         <div class="flex flex-col justify-center items-center w-1/5">
@@ -91,7 +106,9 @@
           <span class="hidden text-xl md:text-5xl">Lisa Dossche</span>
           <span class="md:hidden text-xl w-16">Lisa </span>
         </div>
-        <div class="text-5xl absolute md:relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">❤</div>
+        <div class="text-5xl absolute md:relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <i class="fa-solid fa-heart"></i>
+        </div>
         <div class="flex flex-row-reverse md:flex-col items-center justify-evenly gap-5 w-full">
           <img src="" alt="face-marino" class="bg-slate-300 rounded-full w-40 h-40 md:w-60 md:h-60" />
           <span class="hidden text-xl md:text-5xl">Marino De Wispelaere</span>
@@ -100,20 +117,31 @@
       </div>
       <div class="h-1/4 flex flex-col justify-center items-center gap-4 px-2">
         <h1 class="text-4xl md:text-6xl">Ja, Wij Willen!</h1>
-        <p class="text-xl">Op 19 juli 2025 geven wij het ja woord te ..., België</p>
+        <p class="text-xl">Op 19 juli 2025 geven wij het ja woord te Hof ter Rodepoorte, Kruisem, België</p>
       </div>
     </section>
-    <section class="flex items-center justify-center h-screen w-screen bg-slate-100"></section>
-    <section class="flex items-center justify-center h-screen w-screen bg-secondary"></section>
-    <section class="flex flex-col items-center justify-center h-screen w-screen bg-secondary">
-      <div class="p-4"><h1 class="text-4xl md:text-6xl">Waar & Wanneer</h1></div>
-      <div class="grid grid-cols-1 md:grid-cols-2 w-[calc(100%-7px)] gap-y-2 md:h-full">
-        <div class="w-full h-40 md:h-full px-2">
-          <gmp-map center="50.914521976148826, 3.5464472846540858" zoom="15" map-id="MapHTRP">
-            <gmp-advanced-marker position="50.914521976148826, 3.5464472846540858" title="Hof ter Rode Poorte">
-              <img class="w-10 h-10" src="{{ url_for('static', filename='images/location-icon.svg') }}" />
-            </gmp-advanced-marker>
-          </gmp-map>
+
+    <section class="flex items-center justify-center h-screen w-screen bg-slate-100">
+      <div class="p-4"><h1 class="text-4xl md:text-6xl">Lisa</h1></div>
+    </section>
+
+    <section class="flex items-center justify-center h-screen w-screen bg-secondary">
+      <div class="p-4"><h1 class="text-4xl md:text-6xl">Marino</h1></div>
+    </section>
+
+    <section class="flex flex-col items-center justify-start h-screen w-screen bg-secondary">
+      <div class="p-4"><h1 class="text-4xl md:text-6xl h-1/6">Waar & Wanneer</h1></div>
+      <div
+        class="grid grid-cols-1 grid-rows-where-when md:grid-cols-2 w-[calc(100%-7px)] h-full gap-y-2 md:h-full pb-2"
+      >
+        <div class="mx-2 md:mb-4">
+          <div class="w-full h-full rounded overflow-hidden">
+            <gmp-map center="50.914521976148826, 3.5464472846540858" zoom="15" map-id="MapHTRP">
+              <gmp-advanced-marker position="50.914521976148826, 3.5464472846540858" title="Hof ter Rode Poorte">
+                <img class="w-10 h-10" src="{{ url_for('static', filename='images/location-icon.svg') }}" />
+              </gmp-advanced-marker>
+            </gmp-map>
+          </div>
         </div>
         <div class="hidden md:flex flex-col px-2 gap-2">
           <div class="p-4 bg-slate-100 rounded">
@@ -148,17 +176,17 @@
             <p class="font-bold">Zaterdag, 19 juli, 2025 — .. — Hof ter Rode Poorte, Ropoortstraatje 1, 9770 Kruisem</p>
           </div>
         </div>
-        <div class="md:hidden flex flex-col px-2 gap-2">
+        <div class="h-fit md:hidden flex flex-col px-2 gap-2">
           <div class="p-4 bg-slate-100 rounded">
             <h2
               class="text-4xl"
-              _="on click toggle between .max-h-0 and .max-h-32 on #info-waar-g then add .max-h-0 to #info-waar-c then remove .max-h-32 from #info-waar-c then add .max-h-0 to #info-waar-h then remove .max-h-32 from #info-waar-h"
+              _="on click toggle between .h-closed and .h-open on #info-waar-g then add .h-closed to #info-waar-c then remove .h-open from #info-waar-c then add .h-closed to #info-waar-h then remove .h-open from #info-waar-h"
             >
               Gemeente
             </h2>
             <div
               id="info-waar-g"
-              class="max-h-0 flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
+              class="h-closed flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
             >
               <p class="">
                 Wij geven elkaar om 12u het jawoord in de gemeente samen met onze getuigen en dichte familie.
@@ -169,13 +197,13 @@
           <div class="p-4 bg-slate-100 rounded">
             <h2
               class="text-4xl"
-              _="on click toggle between .max-h-0 and .max-h-32 on #info-waar-c then add .max-h-0 to #info-waar-g then remove .max-h-32 from #info-waar-g then add .max-h-0 to #info-waar-h then remove .max-h-32 from #info-waar-h"
+              _="on click toggle between .h-closed and .h-open on #info-waar-c then add .h-closed to #info-waar-g then remove .h-open from #info-waar-g then add .h-closed to #info-waar-h then remove .h-open from #info-waar-h"
             >
               Ceremonie
             </h2>
             <div
               id="info-waar-c"
-              class="max-h-32 flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
+              class="h-open flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
             >
               <p class="">
                 Om ..u geven wij elkaar nog eens het jawoord aan onze Rent-a-priest Steven D’hoore in de prachtige
@@ -189,13 +217,13 @@
           <div class="p-4 bg-slate-100 rounded">
             <h2
               class="text-4xl"
-              _="on click toggle between .max-h-0 and .max-h-32 on #info-waar-h then add .max-h-0 to #info-waar-g then remove .max-h-32 from #info-waar-g then add .max-h-0 to #info-waar-c then remove .max-h-32 from #info-waar-c"
+              _="on click toggle between .h-closed and .h-open on #info-waar-h then add .h-closed to #info-waar-g then remove .h-open from #info-waar-g then add .h-closed to #info-waar-c then remove .h-open from #info-waar-c"
             >
               Huwelijksfestival
             </h2>
             <div
               id="info-waar-h"
-              class="max-h-0 flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
+              class="h-closed flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
             >
               <p class="">
                 We kijken ernaar uit om deze speciale dag samen met jullie allen te vieren tijdens ons huwelijksfestival
@@ -215,12 +243,15 @@
         </div>
       </div>
     </section>
+
     <section class="flex flex-col items-center justify-center h-screen w-screen bg-slate-100">
       <div class="p-4"><h1 class="text-4xl md:text-6xl">Cadeautip</h1></div>
-      <p>Mocht u ons met iets leuks willen verrassen, hopen wij dat het in een envelopje zal passen of rek.nr ..</p>
+      <p class="p-4">
+        Mocht u ons met iets leuks willen verrassen, hopen wij dat het in een envelopje zal passen of rek.nr ..
+      </p>
     </section>
 
-    <section id="rsvp" class="flex items-center justify-center h-screen w-screen bg-primary">
+    <section id="rsvp" class="flex items-center justify-center h-screen w-screen bg-primary p-4">
       <form class="flex flex-col gap-2 w-[500px]">
         <div class="flex flex-col gap-4">
           <h1 class="text-4xl">Ben Jij Erbij?</h1>
@@ -357,11 +388,12 @@
         </div>
       </form>
     </section>
-    <section class="grid grid-cols-2 items-center justify-center h-screen w-screen bg-secondary">
+
+    <section class="grid grid-cols-1 md:grid-cols-2 items-center justify-center h-screen w-screen bg-secondary">
       <div class="flex flex-col justify-center items-center gap-4">
         <h1 class="text-4xl md:text-6xl">Getuige Marino</h1>
         <img
-          class="rounded-full object-cover w-[calc(50vw-100px)] h-[calc(50vw-100px)]"
+          class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] md:w-[calc(50vw-100px)] md:h-[calc(50vw-100px)]"
           src="{{ url_for('static', filename='images/Massimo Van Haver.jpeg') }}"
           alt="Massimo Van Haver"
         />
@@ -370,26 +402,39 @@
       <div class="flex flex-col justify-center items-center gap-4">
         <h1 class="text-4xl md:text-6xl">Getuige Lisa</h1>
         <img
-          class="rounded-full object-cover w-[calc(50vw-100px)] h-[calc(50vw-100px)]"
+          class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] md:w-[calc(50vw-100px)] md:h-[calc(50vw-100px)]"
           src="{{ url_for('static', filename='images/Marijke Brain.jpeg') }}"
           alt="Marijke Brain"
         />
         <p class="text-xl">Marijke Brain</p>
       </div>
     </section>
-    <section class="flex flex-col items-center justify-center h-screen w-screen bg-secondary">
+
+    <section class="flex flex-col items-center justify-center h-screen w-screen bg-secondary gap-4">
       <div><h1 class="text-4xl md:text-6xl">Bruidskindjes</h1></div>
-      <div class="grid grid-cols-3">
-        <div>
-          <img src="" alt="Aurélie De Wispelaere" />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div class="flex flex-col gap-1 justify-center items-center">
+          <img
+            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33vh-100px)] max-w-[calc(33vh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
+            src=""
+            alt="Aurélie De Wispelaere"
+          />
           <p>Aurélie De Wispelaere</p>
         </div>
-        <div>
-          <img src="" alt="Gastón De Wispelaere" />
-          <p>Aurélie De Wispelaere</p>
+        <div class="flex flex-col gap-1 justify-center items-center">
+          <img
+            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33vh-100px)] max-w-[calc(33vh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
+            src=""
+            alt="Gastón De Wispelaere"
+          />
+          <p>Gastón De Wispelaere</p>
         </div>
-        <div>
-          <img src="" alt="Otis Van Haver" />
+        <div class="flex flex-col gap-1 justify-center items-center">
+          <img
+            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33vh-100px)] max-w-[calc(33vh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
+            src=""
+            alt="Otis Van Haver"
+          />
           <p>Otis Van Haver</p>
         </div>
       </div>
