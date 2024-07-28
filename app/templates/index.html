@@ -6,9 +6,9 @@
 
 <script src="{{ url_for('static', filename='js/htmx.js') }}"></script>
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="{{ url_for('static', filename='js/hearts.js') }}"></script>
+<script defer async src="{{ url_for('static', filename='js/hearts.js') }}"></script>
 <script src="{{ url_for('static', filename='js/tailwind.config.js') }}"></script>
-<script src="{{ url_for('static', filename='js/countdown.js') }}"></script>
+<script defer async src="{{ url_for('static', filename='js/countdown.js') }}"></script>
 <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
 <script defer async src="https://kit.fontawesome.com/e0c8bcf022.js" crossorigin="anonymous"></script>
 
@@ -37,16 +37,6 @@
           class="h-[600px] md:w-full rounded-full px-5 mx-4 bg-white object-contain shadow-custom md:py-4"
           src="{{ url_for('static', filename='images/logo2.png') }}"
         />
-        {#
-        <h1 class="text-6xl">Lisa ❤ Marino</h1>
-        <h3 class="text-2xl ml-auto mr-2">19/07/2025</h3>
-        #}
-      </div>
-    </section>
-    <section id="hero" class="flex items-center justify-center bg-primary relative">
-      <canvas id="hero-canvas" class="absolute"></canvas>
-      <div class="flex flex-col opacity-0 transition-opacity duration-[3000ms] ease-out" _="init add .opacity-100">
-        <img class="h-[600px] md:w-full object-contain" src="{{ url_for('static', filename='images/logo.png') }}" />
         {#
         <h1 class="text-6xl">Lisa ❤ Marino</h1>
         <h3 class="text-2xl ml-auto mr-2">19/07/2025</h3>
@@ -98,9 +88,8 @@
           <span>Seconden</span>
         </div>
       </div>
-      <div
-        class="flex flex-col md:flex-row items-center justify-center w-full md:gap-10 h-1/2 bg-slate-100 px-2 py-2 relative"
-      >
+      <div class="flex flex-col md:flex-row items-center justify-center w-full h-1/2 bg-slate-100 px-2 py-2 relative">
+        {#
         <div class="flex flex-row md:flex-col items-center justify-evenly gap-5 w-full">
           <img src="" alt="face-lisa" class="bg-slate-300 w-40 h-40 md:w-60 md:h-60 rounded-full" />
           <span class="hidden text-xl md:text-5xl">Lisa Dossche</span>
@@ -113,6 +102,23 @@
           <img src="" alt="face-marino" class="bg-slate-300 rounded-full w-40 h-40 md:w-60 md:h-60" />
           <span class="hidden text-xl md:text-5xl">Marino De Wispelaere</span>
           <span class="md:hidden text-xl w-16">Marino</span>
+        </div>
+        #}
+
+        <div class="flex items-center justify-center md:w-1/3">
+          <span class="text-xl md:text-5xl">Lisa Dossche</span>
+          {# <span class="md:hidden text-xl w-16">Lisa </span> #}
+        </div>
+        <div class="md:w-1/3 flex items-center justify-center" style="filter: drop-shadow(0 0 20px #b38073)">
+          <img
+            class="img-heart object-cover bg-slate-300 mt-5 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(50dvh-100px)] max-w-[calc(50dvh-100px)] md:w-[calc(50vw-100px)] md:h-[calc(50vw-100px)]"
+            src="{{ url_for('static', filename='images/marino-lisa-3.jpg') }}"
+            alt="Lisa & Marino"
+          />
+        </div>
+        <div class="flex items-center justify-center md:w-1/3">
+          <span class="text-xl md:text-5xl">Marino De Wispelaere</span>
+          {# <span class="md:hidden text-xl w-16">Marino</span> #}
         </div>
       </div>
       <div class="h-1/4 flex flex-col justify-center items-center gap-4 px-2">
@@ -265,7 +271,7 @@
         <h1 class="text-4xl md:text-6xl">Getuige Lisa</h1>
         <img
           class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(50dvh-100px)] max-w-[calc(50dvh-100px)] md:w-[calc(50vw-100px)] md:h-[calc(50vw-100px)]"
-          src="{{ url_for('static', filename='images/Marijke Brain.jpeg') }}"
+          src="{{ url_for('static', filename='images/Marijke Brain.jpg') }}"
           alt="Marijke Brain"
         />
         <p class="text-xl">Marijke Brain</p>
@@ -277,24 +283,24 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
         <div class="flex flex-col gap-1 justify-center items-center">
           <img
-            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33dvh-100px)] max-w-[calc(33dvh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
-            src=""
+            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33dvh-100px)] max-w-[calc(33dvh-100px)] md:max-h-[calc(80dvh-100px)] md:max-w-[calc(80dvh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
+            src="{{ url_for('static', filename='images/Aurelie De Wispelaere.jpg') }}"
             alt="Aurélie De Wispelaere"
           />
           <p>Aurélie De Wispelaere</p>
         </div>
         <div class="flex flex-col gap-1 justify-center items-center">
           <img
-            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33dvh-100px)] max-w-[calc(33dvh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
-            src=""
+            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33dvh-100px)] max-w-[calc(33dvh-100px)] md:max-h-[calc(80dvh-100px)] md:max-w-[calc(80dvh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
+            src="{{ url_for('static', filename='images/Gaston De Wispelaere.jpg') }}"
             alt="Gastón De Wispelaere"
           />
           <p>Gastón De Wispelaere</p>
         </div>
         <div class="flex flex-col gap-1 justify-center items-center">
           <img
-            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33dvh-100px)] max-w-[calc(33dvh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
-            src=""
+            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33dvh-100px)] max-w-[calc(33dvh-100px)] md:max-h-[calc(80dvh-100px)] md:max-w-[calc(80dvh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
+            src="{{ url_for('static', filename='images/Otis Van Haver.jpg') }}"
             alt="Otis Van Haver"
           />
           <p>Otis Van Haver</p>
