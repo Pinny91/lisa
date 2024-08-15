@@ -25,28 +25,30 @@
   href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400..700&display=swap"
   rel="stylesheet"
 />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}" />
 
 <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" />
+<style type="text/tailwindcss">
+  .active {
+    @apply border-current;
+  }
+</style>
 
 <body hx-boost="true" class="bg-primary">
   <main>
     <section id="hero" class="flex items-center justify-center bg-primary relative">
       <canvas id="hero-canvas" class="absolute"></canvas>
-      <div class="flex flex-col opacity-0 transition-opacity duration-[3000ms] ease-out" _="init add .opacity-100">
+      <div class="flex flex-col opacity-0 transition-opacity duration-[4000ms] ease-linear" _="init add .opacity-100">
         <img
           class="h-[600px] md:w-full rounded-full px-5 mx-4 bg-white object-contain shadow-custom md:py-4"
           src="{{ url_for('static', filename='images/logo2.png') }}"
         />
-        {#
-        <h1 class="text-6xl">Lisa ❤ Marino</h1>
-        <h3 class="text-2xl ml-auto mr-2">19/07/2025</h3>
-        #}
       </div>
     </section>
 
-    <header class="sticky top-0 z-10 flex justify-end bg-transparent">
-      <a href="/rsvp" class="mr-5">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 md:w-14 md:h-14" viewBox="-1 -40 42 40">
+    <header class="sticky top-0 z-10 flex justify-end items-center bg-transparent">
+      <a href="/rsvp" class="z-[9999]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 md:w-12 md:h-12" viewBox="-1 -40 42 40">
           <path
             d="M 4 0 C 2 0 0 -2 0 -4 L 0 -20 C 0 -21 3 -22 4 -22 L 20 -10 L 36 -22 C 37 -22 40 -21 40 -20 L 40 -4 C 40 -2 38 0 36 0 L 4 0 M 5 -21"
             stroke="#000000"
@@ -63,9 +65,100 @@
           <text x="7" y="-23" class="font-Playwrite text-[8px]">RSVP</text>
         </svg>
       </a>
+      <button
+        class="hamburger-icon z-[9999] flex items-center justify-center w-10 h-10 md:w-14 md:h-14 hover:text-gray-400"
+      >
+        <label for="dropdown" class="flex cursor-pointer flex-col items-center justify-center">
+          <span class="sr-only">Open main menu</span>
+          <svg id="up-icon-svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7"
+            />
+          </svg>
+          <svg
+            id="hamburger-icon-svg"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15"
+            />
+          </svg>
+        </label>
+        <input type="checkbox" id="dropdown" />
+      </button>
+
+      <div class="navigation flex flex-col items-center justify-center">
+        <ul class="flex flex-col gap-2 w-full">
+          <li class="border-b-2 border-primary first:border-t-2">
+            <a
+              href="/#bruid"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              hx-swap="transition:true"
+            >
+              Bruid & Bruidegom
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
+              href="/#waar"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              hx-swap="transition:true"
+            >
+              Waar & Wanneer
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
+              href="/#cadeau"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              hx-swap="transition:true"
+            >
+              Cadeautip
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
+              href="/#getuigen"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              hx-swap="transition:true"
+            >
+              Getuigen
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
+              href="/#bruidskindjes"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              hx-swap="transition:true"
+            >
+              Bruidskindjes
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
+              href="/rsvp"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              hx-swap="transition:true"
+            >
+              Laat weten of jullie kunnen komen
+            </a>
+          </li>
+        </ul>
+      </div>
     </header>
 
-    <section class="flex flex-col h-dvh w-screen bg-secondary">
+    <section class="flex flex-col h-dvh w-screen bg-primary">
       <div id="timer" class="flex flex-row items-center justify-center gap-5 h-1/4 px-2">
         <div class="flex flex-col justify-center items-center w-1/5">
           <span id="months-value" class="text-4xl md:text-9xl"></span>
@@ -127,15 +220,40 @@
       </div>
     </section>
 
-    <section class="flex items-center justify-center h-dvh w-screen bg-slate-100">
-      <div class="p-4"><h1 class="text-4xl md:text-6xl">Lisa</h1></div>
+    <section id="bruid" class="flex flex-col items-center justify-center h-dvh w-screen gap-8 bg-slate-100 pt-5">
+      <img
+        class="rounded-full object-cover bg-slate-300 w-[calc(100vw-40px)] h-[calc(100vw-40px)] max-h-[calc(50dvh-40px)] max-w-[calc(50dvh-40px)] md:w-[calc(50vw-40px)] md:h-[calc(50vw-40px)]"
+        src="{{ url_for('static', filename='images/lisa.jpg') }}"
+        alt="Lisa"
+      />
+
+      <div class="px-4 flex flex-col gap-2">
+        <h1 class="text-4xl md:text-6xl pl-2">Dossche Lisa</h1>
+        <p class="text-lg leading-snug">
+          In 2018 heb ik mijn grote liefde leren kennen. Ik toen als verkoopster in de bakkerij En jij die af en toe
+          “een koekske” kwam halen maar er met “het pateeke” vandoor ging. Nu een huis en 2 fantastische kinderen later,
+          ben ik ontzettend blij dat wij onze mooie dag met jullie mogen delen. x
+        </p>
+      </div>
     </section>
 
-    <section class="flex items-center justify-center h-dvh w-screen bg-secondary">
-      <div class="p-4"><h1 class="text-4xl md:text-6xl">Marino</h1></div>
+    <section class="flex flex-col gap-8 items-center justify-center h-dvh w-screen bg-primary pt-5">
+      <img
+        class="rounded-full object-cover bg-slate-300 w-[calc(100vw-40px)] h-[calc(100vw-40px)] max-h-[calc(50dvh-40px)] max-w-[calc(50dvh-40px)] md:w-[calc(50vw-40px)] md:h-[calc(50vw-40px)]"
+        src="{{ url_for('static', filename='images/marino2.jpg') }}"
+        alt="Marino"
+      />
+
+      <div class="px-4 flex flex-col gap-2">
+        <h1 class="text-4xl md:text-6xl pl-2">De Wispelaere Marino</h1>
+        <p class="text-lg leading-snug">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam, repellat eos architecto fuga iusto illum eum,
+          ex ipsa, deleniti quisquam commodi cum. Odit eum labore repellendus libero natus saepe possimus.
+        </p>
+      </div>
     </section>
 
-    <section class="flex flex-col items-center justify-start h-dvh w-screen bg-secondary">
+    <section id="waar" class="flex flex-col items-center justify-start h-dvh w-screen bg-primary pt-5">
       <div class="p-4"><h1 class="text-4xl md:text-6xl h-1/6">Waar & Wanneer</h1></div>
       <div
         class="grid grid-cols-1 grid-rows-where-when md:grid-cols-2 w-[calc(100%-7px)] h-full gap-y-2 md:h-full pb-2"
@@ -183,33 +301,89 @@
           </div>
         </div>
         <div class="h-fit md:hidden flex flex-col px-2 gap-2">
-          <div class="p-4 bg-slate-100 rounded">
-            <h2
-              class="text-4xl"
-              _="on click toggle between .h-closed and .h-open on #info-waar-g then add .h-closed to #info-waar-c then remove .h-open from #info-waar-c then add .h-closed to #info-waar-h then remove .h-open from #info-waar-h"
-            >
-              Gemeente
-            </h2>
+          <div id="waar-gemeente" class="p-4 bg-slate-100 rounded">
             <div
-              id="info-waar-g"
-              class="h-closed flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
+              class="flex flex-row items-center"
+              _="
+  on click 
+    if (the next <div.info/>) matches .h-open 
+        remove .h-open from .info 
+        then remove .hidden from .c-down then add .block to .c-down 
+        then remove .block from .c-up then add .hidden to .c-up
+    else 
+        remove .h-open from .info 
+        then add .h-open to the next <div.info/> 
+        then remove .hidden from .c-down then add .block to .c-down
+        then remove .block from .c-up then add .hidden to .c-up
+        then toggle between .block and .hidden on <svg.c-up /> in me 
+        then toggle between .block and .hidden on <svg.c-down /> in me
+    end
+"
             >
+              <h2 class="text-4xl">Gemeente</h2>
+              <svg class="c-up w-5 h-5 ml-auto hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                  d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"
+                />
+              </svg>
+              <svg class="c-down w-5 h-5 ml-auto block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                  d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
+                />
+              </svg>
+            </div>
+            <div class="h-closed info flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300">
               <p class="">
                 Wij geven elkaar om 12u het jawoord in de gemeente samen met onze getuigen en dichte familie.
               </p>
               <p class="font-bold">Zaterdag, 19 juli, 2025 — 12.00 — Stadhuis, Markt 1, 9770 Kruisem</p>
             </div>
           </div>
-          <div class="p-4 bg-slate-100 rounded">
-            <h2
-              class="text-4xl"
-              _="on click toggle between .h-closed and .h-open on #info-waar-c then add .h-closed to #info-waar-g then remove .h-open from #info-waar-g then add .h-closed to #info-waar-h then remove .h-open from #info-waar-h"
-            >
-              Ceremonie
-            </h2>
+          <div id="waar-ceremonie" class="p-4 bg-slate-100 rounded">
             <div
-              id="info-waar-c"
-              class="h-open flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
+              class="flex flex-row items-center"
+              _="
+  on click 
+    if (the next <div.info/>) matches .h-open 
+        remove .h-open from .info 
+        then remove .hidden from .c-down then add .block to .c-down 
+        then remove .block from .c-up then add .hidden to .c-up
+    else 
+        remove .h-open from .info 
+        then add .h-open to the next <div.info/> 
+        then remove .hidden from .c-down then add .block to .c-down
+        then remove .block from .c-up then add .hidden to .c-up
+        then toggle between .block and .hidden on <svg.c-up /> in me 
+        then toggle between .block and .hidden on <svg.c-down /> in me
+    end
+"
+            >
+              <h2 class="text-4xl">Ceremonie</h2>
+              <svg
+                class="c-up w-5 h-5 ml-auto block chevrons-waar-c"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                  d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"
+                />
+              </svg>
+              <svg
+                class="c-down w-5 h-5 ml-auto hidden chevrons-waar-c"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                  d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
+                />
+              </svg>
+            </div>
+            <div
+              class="h-closed h-open info flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
             >
               <p class="">
                 Om ..u geven wij elkaar nog eens het jawoord aan onze Rent-a-priest Steven D’hoore in de prachtige
@@ -220,17 +394,48 @@
               </p>
             </div>
           </div>
-          <div class="p-4 bg-slate-100 rounded">
-            <h2
-              class="text-4xl"
-              _="on click toggle between .h-closed and .h-open on #info-waar-h then add .h-closed to #info-waar-g then remove .h-open from #info-waar-g then add .h-closed to #info-waar-c then remove .h-open from #info-waar-c"
-            >
-              Huwelijksfestival
-            </h2>
+          <div id="waar-huwelijk" class="p-4 bg-slate-100 rounded">
             <div
-              id="info-waar-h"
-              class="h-closed flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
+              class="flex flex-row items-center"
+              _="
+  on click 
+    if (the next <div.info/>) matches .h-open 
+        remove .h-open from .info 
+        then remove .hidden from .c-down then add .block to .c-down 
+        then remove .block from .c-up then add .hidden to .c-up
+    else 
+        remove .h-open from .info 
+        then add .h-open to the next <div.info/> 
+        then remove .hidden from .c-down then add .block to .c-down
+        then remove .block from .c-up then add .hidden to .c-up
+        then toggle between .block and .hidden on <svg.c-up /> in me 
+        then toggle between .block and .hidden on <svg.c-down /> in me
+    end
+"
             >
+              <h2 class="text-4xl">Huwelijksfeest</h2>
+              <svg
+                class="c-up w-5 h-5 ml-auto hidden chevrons-waar-h"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                  d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"
+                />
+              </svg>
+              <svg
+                class="c-down w-5 h-5 ml-auto block chevrons-waar-h"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                  d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
+                />
+              </svg>
+            </div>
+            <div class="h-closed info flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300">
               <p class="">
                 We kijken ernaar uit om deze speciale dag samen met jullie allen te vieren tijdens ons huwelijksfestival
                 in Hof ter Rode Poorte.
@@ -250,40 +455,46 @@
       </div>
     </section>
 
-    <section class="flex flex-col items-center justify-center h-dvh w-screen bg-slate-100">
+    <section id="cadeau" class="flex flex-col items-center justify-center h-dvh w-screen bg-slate-100 pt-5">
       <div class="p-4"><h1 class="text-4xl md:text-6xl">Cadeautip</h1></div>
       <p class="p-4">
         Mocht u ons met iets leuks willen verrassen, hopen wij dat het in een envelopje zal passen of rek.nr ..
       </p>
     </section>
 
-    <section class="grid grid-cols-1 md:grid-cols-2 items-center justify-center h-dvh w-screen bg-secondary">
-      <div class="flex flex-col justify-center items-center gap-4">
+    <section
+      id="getuigen"
+      class="grid grid-cols-1 gap-4 md:grid-cols-2 items-center justify-center h-dvh w-screen bg-primary pt-5"
+    >
+      <div class="flex flex-col justify-center items-center gap-1">
         <h1 class="text-4xl md:text-6xl">Getuige Marino</h1>
         <img
-          class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(50dvh-100px)] max-w-[calc(50dvh-100px)] md:w-[calc(50vw-100px)] md:h-[calc(50vw-100px)]"
+          class="rounded-full object-cover bg-slate-300 w-[calc(100vw-125px)] h-[calc(100vw-125px)] max-h-[calc(50dvh-125px)] max-w-[calc(50dvh-125px)] md:w-[calc(50vw-125px)] md:h-[calc(50vw-125px)]"
           src="{{ url_for('static', filename='images/Massimo Van Haver.jpeg') }}"
           alt="Massimo Van Haver"
         />
         <p class="text-xl font-light">Massimo Van Haver</p>
       </div>
-      <div class="flex flex-col justify-center items-center gap-4">
+      <div class="flex flex-col justify-center items-center gap-1">
         <h1 class="text-4xl md:text-6xl">Getuige Lisa</h1>
         <img
-          class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(50dvh-100px)] max-w-[calc(50dvh-100px)] md:w-[calc(50vw-100px)] md:h-[calc(50vw-100px)]"
-          src="{{ url_for('static', filename='images/Marijke Brain.jpg') }}"
+          class="rounded-full object-cover bg-slate-300 w-[calc(100vw-125px)] h-[calc(100vw-125px)] max-h-[calc(50dvh-125px)] max-w-[calc(50dvh-125px)] md:w-[calc(50vw-125px)] md:h-[calc(50vw-125px)]"
+          src="{{ url_for('static', filename='images/Marijke Brain2.jpg') }}"
           alt="Marijke Brain"
         />
         <p class="text-xl">Marijke Brain</p>
       </div>
     </section>
 
-    <section class="flex flex-col items-center justify-center h-dvh w-screen bg-secondary gap-4">
+    <section
+      id="bruidskindjes"
+      class="flex flex-col items-center justify-center h-dvh w-screen bg-secondary gap-4 pt-5"
+    >
       <div><h1 class="text-4xl md:text-6xl">Bruidskindjes</h1></div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div class="flex flex-col gap-1 justify-center items-center">
           <img
-            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33dvh-100px)] max-w-[calc(33dvh-100px)] md:max-h-[calc(80dvh-100px)] md:max-w-[calc(80dvh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
+            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvh-75px)] max-w-[calc(33dvh-75px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
             src="{{ url_for('static', filename='images/Aurelie De Wispelaere.jpg') }}"
             alt="Aurélie De Wispelaere"
           />
@@ -291,15 +502,15 @@
         </div>
         <div class="flex flex-col gap-1 justify-center items-center">
           <img
-            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33dvh-100px)] max-w-[calc(33dvh-100px)] md:max-h-[calc(80dvh-100px)] md:max-w-[calc(80dvh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
-            src="{{ url_for('static', filename='images/Gaston De Wispelaere.jpg') }}"
+            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvh-75px)] max-w-[calc(33dvh-75px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
+            src="{{ url_for('static', filename='images/Gaston De Wispelaere4.jpg') }}"
             alt="Gastón De Wispelaere"
           />
           <p>Gastón De Wispelaere</p>
         </div>
         <div class="flex flex-col gap-1 justify-center items-center">
           <img
-            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(33dvh-100px)] max-w-[calc(33dvh-100px)] md:max-h-[calc(80dvh-100px)] md:max-w-[calc(80dvh-100px)] md:w-[calc(33vw-100px)] md:h-[calc(33vw-100px)]"
+            class="rounded-full object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvh-75px)] max-w-[calc(33dvh-75px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
             src="{{ url_for('static', filename='images/Otis Van Haver.jpg') }}"
             alt="Otis Van Haver"
           />

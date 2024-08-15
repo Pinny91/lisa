@@ -47,7 +47,7 @@ h3 {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #ffd951;
+  background: #c9d5b5;
 }
 
 ::-webkit-scrollbar-track {
@@ -56,7 +56,7 @@ h3 {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 8px;
-  background-color: #ffe790;
+  background-color: #c9d5b5;
 }
 
 #attend-yes-dot {
@@ -80,7 +80,7 @@ h3 {
 }
 
 .h-open {
-  max-height: 8rem /* 128px */;
+  max-height: 8rem !important /* 128px */;
 }
 
 .img-heart {

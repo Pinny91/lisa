@@ -1,0 +1,44 @@
+/* Hiding the checkbox default styling */
+.hamburger-icon input[type="checkbox"] {
+  appearance: none;
+}
+
+/* Initially hiding the cross icon */
+#hamburger-icon-svg {
+  width: 20px;
+  height: 20px;
+  transition: all 0.5s ease-in-out;
+}
+#up-icon-svg {
+  width: 0;
+  height: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.navigation {
+  height: 0;
+  top: 0;
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  z-index: 999;
+}
+
+/*determining whether the header contains a checkbox input that is checked before expanding the navigation's height to 100 pixels to make it visible.*/
+header:has(.hamburger-icon input[type="checkbox"]:checked) .navigation {
+  height: 100vh;
+  background-color: white;
+}
+
+/* Hiding the bars icon on checkbox checked state */
+header:has(.hamburger-icon input[type="checkbox"]:checked) #hamburger-icon-svg {
+  width: 0;
+  height: 0;
+}
+
+/* Showing the cross icon on checkbox checked state */
+header:has(.hamburger-icon input[type="checkbox"]:checked) #up-icon-svg {
+  width: 20px;
+  height: 20px;
+}
