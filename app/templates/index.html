@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<script src="{{ url_for('static', filename='js/htmx.js') }}"></script>
+<script defer async src="{{ url_for('static', filename='js/htmx.js') }}"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer async src="{{ url_for('static', filename='js/hearts.js') }}"></script>
 <script src="{{ url_for('static', filename='js/tailwind.config.js') }}"></script>
@@ -147,6 +147,15 @@
           </li>
           <li class="border-b-2 border-primary">
             <a
+              href="/#fotos"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              hx-swap="transition:true"
+            >
+              Foto`s
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
               href="/rsvp"
               class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
               hx-swap="transition:true"
@@ -230,7 +239,7 @@
       <div class="px-4 flex flex-col gap-2">
         <h1 class="text-4xl md:text-6xl pl-2">Dossche Lisa</h1>
         <p class="text-lg leading-snug">
-          In 2018 heb ik mijn grote liefde leren kennen. Ik toen als verkoopster in de bakkerij En jij die af en toe
+          In 2017 heb ik mijn grote liefde leren kennen. Ik toen als verkoopster in de bakkerij En jij die af en toe
           “een koekske” kwam halen maar er met “het pateeke” vandoor ging. Nu een huis en 2 fantastische kinderen later,
           ben ik ontzettend blij dat wij onze mooie dag met jullie mogen delen. x
         </p>
@@ -247,8 +256,11 @@
       <div class="px-4 flex flex-col gap-2">
         <h1 class="text-4xl md:text-6xl pl-2">De Wispelaere Marino</h1>
         <p class="text-lg leading-snug">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam, repellat eos architecto fuga iusto illum eum,
-          ex ipsa, deleniti quisquam commodi cum. Odit eum labore repellendus libero natus saepe possimus.
+          Van begin 2018 urenlange gesprekken in de auto, tot begin 2019 ons eigen stekje, tot 2021 een prachtige
+          dochter, tot 2024 een prachtige zoon. Ooh schatje! En bovenop zijn we nu al 5 jaar verloofd! Geloof je het
+          zelf!? Vanwege corona wou ik toch ons liefdesfeest uitstellen zodat we het uitgebreid met iedereen kunnen
+          knallen. Wat ben ik blij dat ik jou eindelijk mijn vrouw kan noemen en dat ik de woorden ‘mijn vriendin’ kan
+          laten vallen.
         </p>
       </div>
     </section>
@@ -518,10 +530,106 @@
         </div>
       </div>
     </section>
+    <section
+      id="fotos"
+      class="flex flex-col items-center justify-start h-dvh w-screen bg-slate-100 gap-4 pt-10"
+      _="init 
+          call calculateImagesPerPage({{image_list}})
+          set $x to the result
+          log $x
+          trigger updateImages
+      end
+      on updateImages
+        set html to ' '
+        for index in $x.imagePerPageArray
+          set imageIndex to index + (($x.currentPage -1)*$x.imagesPerPage)
+          call renderImageDiv($x.imageList[imageIndex])
+          append the result to html
+        end
+        put html into .image-container
+        set html to ' '           
+        for index in $x.totalPageArray
+          call renderPageButton(index, $x.currentPage)
+          append the result to html
+        end
+        put html into #pagination
+      end
+      "
+    >
+      <div class="image-container grid grid-cols-2 md:grid-cols-4 gap-1 w-full px-1"></div>
+      <div id="pagination" class="flex flex-row mt-auto gap-2 mb-3"></div>
+      <div id="image-viewer-container" class="fixed inset-0 hidden items-center justify-center md:px-20">
+        <div
+          class="absolute inset-0 bg-black bg-opacity-90"
+          _="on click toggle between .hidden and .flex on #image-viewer-container end"
+        ></div>
+        <div class="z-10 relative flex w-full flex-col items-center justify-center gap-4 bg-black">
+          <button
+            class="flex items-center justify-center text-xl absolute top-1 right-1 w-8 h-8 text-white bg-black bg-opacity-30"
+            _="on click toggle between .hidden and .flex on #image-viewer-container end"
+          >
+            &#10006;
+          </button>
+          <img
+            src="{{ url_for('static', filename='images/view/{image_name}'.format(image_name=image_list[0])) }}"
+            class="big-image h-[calc(100vh-15rem)] w-full object-contain"
+          />
+          <div
+            class="flex w-full max-w-[100vw-10rem] md:max-w-[100vw-10rem] flex-row gap-2 overflow-x-scroll bg-white p-4"
+          >
+            {% for image_name in image_list %}
+            <img
+              src="{{ url_for('static', filename='images/view/{image_name}'.format(image_name=image_name)) }}"
+              class="h-20 w-20 cursor-pointer object-contain"
+              _="on click put '{{ url_for('static', filename='images/view/{image_name}'.format(image_name=image_name)) }}' into  .big-image.src"
+            />
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl6FybACdGCH1yT1hjTtvOCrlmNgYEfJQ&loading=async&libraries=marker&v=beta&solution_channel=GMP_CCS_complexmarkers_v2"
     defer
   ></script>
+
+  <script type="text/hyperscript">
+    js
+      function calculateImagesPerPage(imageList) {
+        let currentPage = 1;
+
+        const viewportHeight = window.innerHeight;
+        const paddingTop = 40; // px
+        const paginationHeight = 40; // Approximate height for pagination controls
+        const availableHeight = viewportHeight - paddingTop - paginationHeight;
+
+        const imageHeight = 144 + 4; // px (image height + gap)
+        const rows = Math.floor(availableHeight / imageHeight);
+
+        const columns = window.innerWidth >= 768 ? 4 : 2; // md:grid-cols-4 vs grid-cols-2
+
+        let imagesPerPage = rows * columns;
+        imagesPerPage = Math.max(imagesPerPage, 1); // Ensure at least 1 image per page
+        const totalPages = Math.ceil(imageList.length / imagesPerPage);
+        currentPage = Math.min(currentPage, totalPages);
+        const imagePerPageArray = [...Array(imagesPerPage).keys()]
+        const totalPageArray = Array.from({length: totalPages}, (_, i) => i + 1)
+        return { imageList, imagesPerPage, totalPages, currentPage, imagePerPageArray, totalPageArray };
+      }
+
+      function renderImageDiv(imageName) {
+        if (!imageName) return ''
+        const imagePath = `/assets/images/view/${imageName}`
+        return `<div class='flex items-center justify-center'><img class='h-36 w-full object-cover' src='${imagePath}' _='on click put "${imagePath}" into  .big-image.src then toggle between .hidden and .flex on #image-viewer-container end' /></div>`
+      }
+
+      function renderPageButton(pageNumber, currentPage) {
+        return `<div class="w-8 h-8 text-xl flex items-center justify-center border border-primary rounded hover:bg-primary ${pageNumber == currentPage ? 'bg-primary' :''}" _="on click set $x.currentPage to ${pageNumber} then trigger updateImages">${pageNumber}</div>`
+      }
+
+      return {calculateImagesPerPage, renderImageDiv, renderPageButton}
+    end
+  </script>
 </body>
