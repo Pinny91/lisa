@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <title>{% block title %}{% endblock %}</title>
 <!-- HTMX -->
 <meta name="robots" content="noindex" />
@@ -9,27 +9,49 @@
 <script src="{{ url_for('static', filename='js/tailwind.config.js') }}"></script>
 <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}" />
-<link href="https://fonts.googleapis.com/css2?family=Meddon&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Playwrite+NG+Modern:wght@100..400&display=swap" rel="stylesheet" />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/default.css') }}"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Meddon&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Playwrite+NG+Modern:wght@100..400&display=swap"
+  rel="stylesheet"
+/>
 <link
   href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap"
   rel="stylesheet"
 />
-<link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+  rel="stylesheet"
+/>
 <link
   href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400..700&display=swap"
   rel="stylesheet"
 />
 
-<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" />
+<link
+  rel="shortcut icon"
+  href="{{ url_for('static', filename='images/favicon.png') }}"
+/>
 
 <body hx-boost="true" class="bg-primary">
   <main>
     <header class="sticky top-0 z-10 flex justify-end bg-transparent">
       <a href="#rsvp" class="mr-5">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 md:w-14 md:h-14" viewBox="-1 -40 42 40">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-10 h-10 md:w-14 md:h-14"
+          viewBox="-1 -40 42 40"
+        >
           <path
             d="M 4 0 C 2 0 0 -2 0 -4 L 0 -20 C 0 -21 3 -22 4 -22 L 20 -10 L 36 -22 C 37 -22 40 -21 40 -20 L 40 -4 C 40 -2 38 0 36 0 L 4 0 M 5 -21"
             stroke="#000000"
@@ -42,23 +64,42 @@
             stroke-width="1."
             fill="white"
           />
-          <line stroke-width=".8" stroke="#000000" x1="10" y1="-21" x2="29" y2="-21"></line>
+          <line
+            stroke-width=".8"
+            stroke="#000000"
+            x1="10"
+            y1="-21"
+            x2="29"
+            y2="-21"
+          ></line>
           <text x="7" y="-23" class="font-Playwrite text-[8px]">RSVP</text>
         </svg>
       </a>
     </header>
-    <section id="rsvp" class="flex items-center justify-center w-screen bg-primary p-4">
+    <section
+      id="rsvp"
+      class="flex items-center justify-center w-screen bg-primary p-4"
+    >
       <form class="flex flex-col gap-2 w-[500px]">
         <div class="flex flex-col gap-4">
           <h1 class="text-4xl">Ben Jij Erbij?</h1>
           <p class="text-sm">Laat ons weten of je aanwezig bent</p>
         </div>
         <div class="flex flex-col gap-0.5">
-          <label for="name">Familie</label>
+          <label for="name">Naam</label>
           <input
             required
             type="text"
             name="name"
+            class="text-sm rounded-lg block w-full p-2.5 bg-gray-700 text-white focus:border-none focus:outline-none"
+          />
+        </div>
+        <div class="flex flex-col gap-0.5">
+          <label for="first-name">Voornaam</label>
+          <input
+            required
+            type="text"
+            name="first-name"
             class="text-sm rounded-lg block w-full p-2.5 bg-gray-700 text-white focus:border-none focus:outline-none"
           />
         </div>
@@ -83,7 +124,10 @@
                 value="true"
                 class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none ring-offset-gray-800 bg-gray-700"
               />
-              <div id="attend-yes-dot" class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"></div>
+              <div
+                id="attend-yes-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
             </div>
             <label for="true">Wij zijn graag aanwezig vanaf de ceremonie</label>
           </div>
@@ -97,7 +141,10 @@
                 value="true"
                 class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
               />
-              <div id="attend-yes-dot" class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"></div>
+              <div
+                id="attend-yes-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
             </div>
             <label for="true">Wij zijn graag aanwezig vanaf de receptie</label>
           </div>
@@ -112,7 +159,10 @@
                 value="false"
                 class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
               />
-              <div id="attend-no-dot" class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"></div>
+              <div
+                id="attend-no-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
             </div>
             <label for="false">Sorry wij kunnen er niet bij zijn</label>
           </div>
@@ -139,7 +189,10 @@
                 value="true"
                 class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none ring-offset-gray-800 bg-gray-700"
               />
-              <div id="attend-yes-dot" class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"></div>
+              <div
+                id="attend-yes-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
             </div>
             <label for="true">Wij lusten alles</label>
           </div>
@@ -153,7 +206,10 @@
                 value="true"
                 class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
               />
-              <div id="attend-yes-dot" class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"></div>
+              <div
+                id="attend-yes-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
             </div>
             <label for="true">Vegetarisch</label>
           </div>
@@ -168,9 +224,14 @@
                 value="false"
                 class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
               />
-              <div id="attend-no-dot" class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"></div>
+              <div
+                id="attend-no-dot"
+                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+              ></div>
             </div>
-            <label for="false"> Allergiëen? (vul deze aan bij de opmerkingen)</label>
+            <label for="false">
+              Allergiëen? (vul deze aan bij de opmerkingen)</label
+            >
           </div>
         </div>
 
@@ -182,6 +243,8 @@
             class="text-sm rounded-lg block w-full p-2.5 bg-gray-700 text-white focus:border-none focus:outline-none"
           ></textarea>
         </div>
+
+        <button>Verzend</button>
       </form>
     </section>
   </main>

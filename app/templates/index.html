@@ -1,44 +1,183 @@
-<!DOCTYPE html>
+<!doctype html>
 <title>{% block title %}{% endblock %}</title>
 <!-- HTMX -->
 <meta name="robots" content="noindex" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<script defer async src="{{ url_for('static', filename='js/htmx.js') }}"></script>
+<script
+  defer
+  async
+  src="{{ url_for('static', filename='js/htmx.js') }}"
+></script>
 <script src="https://cdn.tailwindcss.com"></script>
-<script defer async src="{{ url_for('static', filename='js/hearts.js') }}"></script>
+{#
+<script
+  defer
+  async
+  src="{{ url_for('static', filename='js/hearts.js') }}"
+></script>
+#}
 <script src="{{ url_for('static', filename='js/tailwind.config.js') }}"></script>
-<script defer async src="{{ url_for('static', filename='js/countdown.js') }}"></script>
+<script
+  defer
+  async
+  src="{{ url_for('static', filename='js/countdown.js') }}"
+></script>
 <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
-<script defer async src="https://kit.fontawesome.com/e0c8bcf022.js" crossorigin="anonymous"></script>
+<script
+  defer
+  async
+  src="https://kit.fontawesome.com/e0c8bcf022.js"
+  crossorigin="anonymous"
+></script>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}" />
-<link href="https://fonts.googleapis.com/css2?family=Meddon&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Playwrite+NG+Modern:wght@100..400&display=swap" rel="stylesheet" />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/default.css') }}"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Meddon&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Playwrite+NG+Modern:wght@100..400&display=swap"
+  rel="stylesheet"
+/>
 <link
   href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap"
   rel="stylesheet"
 />
-<link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+  rel="stylesheet"
+/>
 <link
   href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400..700&display=swap"
   rel="stylesheet"
 />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}" />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/navigation.css') }}"
+/>
 
-<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" />
+<link
+  rel="shortcut icon"
+  href="{{ url_for('static', filename='images/favicon.png') }}"
+/>
 <style type="text/tailwindcss">
   .active {
     @apply border-current;
+  }
+  section:nth-child(odd) {
+    @apply bg-primary;
+  }
+  section:nth-child(even) {
+    @apply bg-slate-100;
+  }
+  p {
+    font-size: 1rem;
+  }
+</style>
+
+<style>
+  .wrapper {
+    height: 200px;
+    width: 300px;
+    background-color: #656b5b;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+  }
+
+  .lid {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-right: 150px solid transparent;
+    border-bottom: 100px solid transparent;
+    border-left: 150px solid transparent;
+    transform-origin: top;
+    transition: transform 0.25s linear;
+  }
+
+  /* Lid when closed */
+  .lid.one {
+    border-top: 100px solid #b5c0a3;
+    transform: rotateX(0deg);
+    z-index: 3;
+    transition-delay: 0.75s;
+  }
+
+  /* Lid when opened */
+  .lid.two {
+    border-top: 100px solid #b3c4a4;
+    transform: rotateX(90deg);
+    z-index: 1;
+    transition-delay: 0.5s;
+  }
+
+  .envelope {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-top: 100px solid transparent;
+    border-right: 150px solid #e4eada;
+    border-bottom: 100px solid #e4eada;
+    border-left: 150px solid #d9e2cb;
+    z-index: 3;
+  }
+
+  .letter {
+    position: absolute;
+    top: 0;
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    border-radius: 15px;
+    z-index: 2;
+    transition: 0.5s;
+  }
+
+  .letter p {
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #3b4049;
+  }
+
+  .wrapper:hover .lid.one {
+    transform: rotateX(90deg);
+    transition-delay: 0s;
+  }
+
+  .wrapper:hover .lid.two {
+    transform: rotateX(180deg);
+    transition-delay: 0.25s;
+  }
+
+  .wrapper:hover .letter {
+    transform: translateY(-60px);
+    transition-delay: 0.5s;
   }
 </style>
 
 <body hx-boost="true" class="bg-primary">
   <main>
-    <section id="hero" class="flex items-center justify-center bg-primary relative">
-      <canvas id="hero-canvas" class="absolute"></canvas>
-      <div class="flex flex-col opacity-0 transition-opacity duration-[4000ms] ease-linear" _="init add .opacity-100">
+    <section id="hero" class="flex items-center justify-center relative">
+      <div
+        class="flex flex-col opacity-0 transition-opacity duration-[4000ms] ease-linear"
+        _="init add .opacity-100"
+      >
         <img
           class="h-[600px] md:w-full rounded-full px-5 mx-4 bg-white object-contain shadow-custom md:py-4"
           src="{{ url_for('static', filename='images/logo2.png') }}"
@@ -46,9 +185,15 @@
       </div>
     </section>
 
-    <header class="sticky top-0 z-10 flex justify-end items-center bg-transparent gap-2">
+    <header
+      class="sticky top-0 z-10 flex justify-end items-center bg-transparent gap-2"
+    >
       <a href="/rsvp" class="z-[9999]">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 md:w-12 md:h-12" viewBox="-1 -40 42 40">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-8 h-8 md:w-12 md:h-12"
+          viewBox="-1 -40 42 40"
+        >
           <path
             d="M 4 0 C 2 0 0 -2 0 -4 L 0 -20 C 0 -21 3 -22 4 -22 L 20 -10 L 36 -22 C 37 -22 40 -21 40 -20 L 40 -4 C 40 -2 38 0 36 0 L 4 0 M 5 -21"
             stroke="#000000"
@@ -61,16 +206,32 @@
             stroke-width="1."
             fill="white"
           />
-          <line stroke-width=".8" stroke="#000000" x1="10" y1="-21" x2="29" y2="-21"></line>
+          <line
+            stroke-width=".8"
+            stroke="#000000"
+            x1="10"
+            y1="-21"
+            x2="29"
+            y2="-21"
+          ></line>
           <text x="7" y="-23" class="font-Playwrite text-[8px]">RSVP</text>
         </svg>
       </a>
       <button
         class="hamburger-icon z-[9999] flex items-center justify-center w-10 h-10 md:w-14 md:h-14 hover:text-gray-400"
       >
-        <label for="dropdown" class="flex cursor-pointer flex-col items-center justify-center">
+        <label
+          for="dropdown"
+          class="flex cursor-pointer flex-col items-center justify-center"
+        >
           <span class="sr-only">Open main menu</span>
-          <svg id="up-icon-svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
+          <svg
+            id="up-icon-svg"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 8"
+          >
             <path
               stroke="currentColor"
               stroke-linecap="round"
@@ -167,8 +328,11 @@
       </div>
     </header>
 
-    <section class="flex flex-col h-dvh w-screen bg-primary">
-      <div id="timer" class="flex flex-row items-center justify-center gap-5 h-1/4 px-2">
+    <section class="flex flex-col h-dvh w-screen pt-2">
+      <div
+        id="timer"
+        class="flex flex-row items-center justify-center gap-5 h-1/4 px-16"
+      >
         <div class="flex flex-col justify-center items-center w-1/5">
           <span id="months-value" class="text-4xl md:text-9xl"></span>
           <span>Maanden</span>
@@ -190,28 +354,16 @@
           <span>Seconden</span>
         </div>
       </div>
-      <div class="flex flex-col md:flex-row items-center justify-center w-full h-1/2 bg-slate-100 px-2 py-2 relative">
-        {#
-        <div class="flex flex-row md:flex-col items-center justify-evenly gap-5 w-full">
-          <img src="" alt="face-lisa" class="bg-slate-300 w-40 h-40 md:w-60 md:h-60 rounded-full" />
-          <span class="hidden text-xl md:text-5xl">Lisa Dossche</span>
-          <span class="md:hidden text-xl w-16">Lisa </span>
-        </div>
-        <div class="text-5xl absolute md:relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <i class="fa-solid fa-heart"></i>
-        </div>
-        <div class="flex flex-row-reverse md:flex-col items-center justify-evenly gap-5 w-full">
-          <img src="" alt="face-marino" class="bg-slate-300 rounded-full w-40 h-40 md:w-60 md:h-60" />
-          <span class="hidden text-xl md:text-5xl">Marino De Wispelaere</span>
-          <span class="md:hidden text-xl w-16">Marino</span>
-        </div>
-        #}
-
+      <div
+        class="flex flex-col md:flex-row items-center justify-center w-full h-1/2 px-2 py-2 relative"
+      >
         <div class="flex items-center justify-center md:w-1/3">
           <span class="text-xl md:text-5xl">Lisa Dossche</span>
-          {# <span class="md:hidden text-xl w-16">Lisa </span> #}
         </div>
-        <div class="md:w-1/3 flex items-center justify-center" style="filter: drop-shadow(0 0 20px #b38073)">
+        <div
+          class="md:w-1/3 flex items-center justify-center"
+          style="filter: drop-shadow(0 0 20px #b38073)"
+        >
           <img
             class="img-heart object-cover bg-slate-300 mt-5 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(50dvh-100px)] max-w-[calc(50dvh-100px)] md:w-[calc(50vw-100px)] md:h-[calc(50vw-100px)]"
             src="{{ url_for('static', filename='images/marino-lisa-3.jpg') }}"
@@ -225,56 +377,83 @@
       </div>
       <div class="h-1/4 flex flex-col justify-center items-center gap-4 px-2">
         <h1 class="text-4xl md:text-6xl">Ja, Wij Willen!</h1>
-        <p class="text-xl">Op 19 juli 2025 geven wij het ja woord te Hof ter Rodepoorte, Kruisem, België</p>
+        <p class="text-xl">
+          Op 19 juli 2025 geven wij het ja woord te Hof ter Rodepoorte, Kruisem,
+          België
+        </p>
       </div>
     </section>
 
-    <section id="bruid" class="flex flex-col items-center justify-center h-dvh w-screen gap-8 bg-slate-100 pt-5">
+    <section
+      id="bruid"
+      class="flex flex-col items-center justify-center h-dvh w-screen gap-8 pt-5"
+    >
       <img
         class="rounded-full object-cover bg-slate-300 w-[calc(100vw-40px)] h-[calc(100vw-40px)] max-h-[calc(50dvh-40px)] max-w-[calc(50dvh-40px)] md:w-[calc(50vw-40px)] md:h-[calc(50vw-40px)]"
         src="{{ url_for('static', filename='images/lisa.jpg') }}"
         alt="Lisa"
       />
 
-      <div class="px-4 flex flex-col gap-2">
+      <div class="px-4 flex flex-col gap-2 md:w-1/2 ml-16 self-start mr-16">
         <h1 class="text-4xl md:text-6xl pl-2">Dossche Lisa</h1>
         <p class="text-lg leading-snug">
-          In 2017 heb ik mijn grote liefde leren kennen. Ik toen als verkoopster in de bakkerij En jij die af en toe
-          “een koekske” kwam halen maar er met “het pateeke” vandoor ging. Nu een huis en 2 fantastische kinderen later,
-          ben ik ontzettend blij dat wij onze mooie dag met jullie mogen delen. x
+          In 2017 heb ik mijn grote liefde leren kennen. Ik toen als verkoopster
+          in de bakkerij En jij die af en toe “een koekske” kwam halen maar er
+          met “het pateeke” vandoor ging. Nu een huis en 2 fantastische kinderen
+          later, ben ik ontzettend blij dat wij onze mooie dag met jullie mogen
+          delen. x
         </p>
       </div>
     </section>
 
-    <section class="flex flex-col gap-8 items-center justify-center h-dvh w-screen bg-primary pt-5">
+    <section
+      class="flex flex-col gap-8 items-center justify-center h-dvh w-screen pt-5"
+    >
       <img
         class="rounded-full object-cover bg-slate-300 w-[calc(100vw-40px)] h-[calc(100vw-40px)] max-h-[calc(50dvh-40px)] max-w-[calc(50dvh-40px)] md:w-[calc(50vw-40px)] md:h-[calc(50vw-40px)]"
         src="{{ url_for('static', filename='images/marino2.jpg') }}"
         alt="Marino"
       />
 
-      <div class="px-4 flex flex-col gap-2">
+      <div class="px-4 flex flex-col gap-2 md:w-2/3 ml-16 self-start mr-16">
         <h1 class="text-4xl md:text-6xl pl-2">De Wispelaere Marino</h1>
         <p class="text-lg leading-snug">
-          Van begin 2018 urenlange gesprekken in de auto, tot begin 2019 ons eigen stekje, tot 2021 een prachtige
-          dochter, tot 2024 een prachtige zoon. Ooh schatje! En bovenop zijn we nu al 5 jaar verloofd! Geloof je het
-          zelf!? Vanwege corona wou ik toch ons liefdesfeest uitstellen zodat we het uitgebreid met iedereen kunnen
-          knallen. Wat ben ik blij dat ik jou eindelijk mijn vrouw kan noemen en dat ik de woorden ‘mijn vriendin’ kan
-          laten vallen.
+          Van begin 2018 urenlange gesprekken in de auto, tot begin 2019 ons
+          eigen stekje, tot 2021 een prachtige dochter, tot 2024 een prachtige
+          zoon. Ooh schatje! En bovenop zijn we nu al 5 jaar verloofd! Geloof je
+          het zelf!? Vanwege corona wou ik toch ons liefdesfeest uitstellen
+          zodat we het uitgebreid met iedereen kunnen knallen. Wat ben ik blij
+          dat ik jou eindelijk mijn vrouw kan noemen en dat ik de woorden ‘mijn
+          vriendin’ kan laten vallen.
         </p>
       </div>
     </section>
 
-    <section id="waar" class="flex flex-col items-center justify-start h-dvh w-screen bg-slate-100 pt-5">
-      <div class="p-4"><h1 class="text-4xl md:text-6xl h-1/6">Waar & Wanneer</h1></div>
+    <section
+      id="waar"
+      class="flex flex-col items-center justify-start h-dvh w-screen pt-5"
+    >
+      <div class="p-4">
+        <h1 class="text-4xl md:text-6xl h-1/6">Waar & Wanneer</h1>
+      </div>
       <div
         class="grid grid-cols-1 grid-rows-where-when md:grid-cols-2 w-[calc(100%-7px)] h-full gap-y-2 md:h-full pb-2"
       >
         <div class="mx-2 md:mb-4">
           <div class="w-full h-full rounded overflow-hidden">
-            <gmp-map center="50.914521976148826, 3.5464472846540858" zoom="15" map-id="MapHTRP">
-              <gmp-advanced-marker position="50.914521976148826, 3.5464472846540858" title="Hof ter Rode Poorte">
-                <img class="w-10 h-10" src="{{ url_for('static', filename='images/location-icon.svg') }}" />
+            <gmp-map
+              center="50.914521976148826, 3.5464472846540858"
+              zoom="15"
+              map-id="MapHTRP"
+            >
+              <gmp-advanced-marker
+                position="50.914521976148826, 3.5464472846540858"
+                title="Hof ter Rode Poorte"
+              >
+                <img
+                  class="w-10 h-10"
+                  src="{{ url_for('static', filename='images/location-icon.svg') }}"
+                />
               </gmp-advanced-marker>
             </gmp-map>
           </div>
@@ -283,25 +462,30 @@
           <div class="p-4 bg-slate-100 rounded">
             <h2 class="text-4xl">Gemeente</h2>
             <p class="">
-              Wij geven elkaar om 12u het jawoord in de gemeente samen met onze getuigen en dichte familie.
+              Wij geven elkaar om 12u het jawoord in de gemeente samen met onze
+              getuigen en dichte familie.
             </p>
-            <p class="font-bold">Zaterdag, 19 juli, 2025 — 12.00 — Stadhuis, Markt 1, 9770 Kruisem</p>
+            <p class="font-bold">
+              Zaterdag, 19 juli, 2025 — 12.00 — Stadhuis, Markt 1, 9770 Kruisem
+            </p>
           </div>
           <div class="p-4 bg-slate-100 rounded">
             <h2 class="text-4xl">Ceremonie</h2>
             <p class="">
-              Om ..u geven wij elkaar nog eens het jawoord aan onze Rent-a-priest Steven D’hoore in de prachtige
-              rozentuin van Hof ter Rode Poorte waar iedereen die wil bij mag zijn.
+              Om 15u geven wij elkaar nog eens het jawoord aan onze
+              Rent-a-priest Steven D’hoore in de prachtige rozentuin van Hof ter
+              Rode Poorte.
             </p>
             <p class="font-bold">
-              Zaterdag, 19 juli, 2025 — .. — Rozentuin, Hof ter Rode Poorte, Ropoortstraatje 1, 9770 Kruisem
+              Zaterdag, 19 juli, 2025 — .. — Rozentuin, Hof ter Rode Poorte,
+              Ropoortstraatje 1, 9770 Kruisem
             </p>
           </div>
           <div class="p-4 bg-slate-100 rounded">
-            <h2 class="text-4xl">Huwelijksfestival</h2>
+            <h2 class="text-4xl">Huwelijksfeest</h2>
             <p class="">
-              We kijken ernaar uit om deze speciale dag samen met jullie allen te vieren tijdens ons huwelijksfestival
-              in Hof ter Rode Poorte.
+              We kijken ernaar uit om deze speciale dag samen met jullie allen
+              te vieren tijdens ons Huwelijksfeest in Hof ter Rode Poorte.
             </p>
             <ul>
               <li>..u - Ontvangst & receptie</li>
@@ -309,7 +493,10 @@
               <li>..u - Start dansfeest</li>
               <li>..u - Einde feest</li>
             </ul>
-            <p class="font-bold">Zaterdag, 19 juli, 2025 — .. — Hof ter Rode Poorte, Ropoortstraatje 1, 9770 Kruisem</p>
+            <p class="font-bold">
+              Zaterdag, 19 juli, 2025 — .. — Hof ter Rode Poorte,
+              Ropoortstraatje 1, 9770 Kruisem
+            </p>
           </div>
         </div>
         <div class="h-fit md:hidden flex flex-col px-2 gap-2">
@@ -333,24 +520,38 @@
 "
             >
               <h2 class="text-4xl">Gemeente</h2>
-              <svg class="c-up w-5 h-5 ml-auto hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <svg
+                class="c-up w-5 h-5 ml-auto hidden"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
                 <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                 <path
                   d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"
                 />
               </svg>
-              <svg class="c-down w-5 h-5 ml-auto block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <svg
+                class="c-down w-5 h-5 ml-auto block"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
                 <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                 <path
                   d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
                 />
               </svg>
             </div>
-            <div class="h-closed info flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300">
+            <div
+              class="h-closed info flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
+            >
               <p class="">
-                Wij geven elkaar om 12u het jawoord in de gemeente samen met onze getuigen en dichte familie.
+                Wij geven elkaar om 12u het jawoord in de gemeente samen met
+                onze getuigen en dichte familie.
               </p>
-              <p class="font-bold">Zaterdag, 19 juli, 2025 — 12.00 — Stadhuis, Markt 1, 9770 Kruisem</p>
+              <p class="font-bold">
+                Zaterdag, 19 juli, 2025 — 12.00 — Stadhuis, Markt 1, 9770
+                Kruisem
+              </p>
             </div>
           </div>
           <div id="waar-ceremonie" class="p-4 bg-slate-100 rounded">
@@ -398,11 +599,13 @@
               class="h-closed h-open info flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
             >
               <p class="">
-                Om ..u geven wij elkaar nog eens het jawoord aan onze Rent-a-priest Steven D’hoore in de prachtige
-                rozentuin van Hof ter Rode Poorte waar iedereen die wil bij mag zijn.
+                Om ..u geven wij elkaar nog eens het jawoord aan onze
+                Rent-a-priest Steven D’hoore in de prachtige rozentuin van Hof
+                ter Rode Poorte waar iedereen die wil bij mag zijn.
               </p>
               <p class="font-bold">
-                Zaterdag, 19 juli, 2025 — .. — Rozentuin, Hof ter Rode Poorte, Ropoortstraatje 1, 9770 Kruisem
+                Zaterdag, 19 juli, 2025 — .. — Rozentuin, Hof ter Rode Poorte,
+                Ropoortstraatje 1, 9770 Kruisem
               </p>
             </div>
           </div>
@@ -447,19 +650,22 @@
                 />
               </svg>
             </div>
-            <div class="h-closed info flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300">
+            <div
+              class="h-closed info flex h-32 flex-col gap-2 overflow-hidden transition-[max-height] duration-300"
+            >
               <p class="">
-                We kijken ernaar uit om deze speciale dag samen met jullie allen te vieren tijdens ons huwelijksfestival
-                in Hof ter Rode Poorte.
+                We kijken ernaar uit om deze speciale dag samen met jullie te
+                vieren in Hof ter Rode Poorte
               </p>
               <ul>
-                <li>..u - Ontvangst & receptie</li>
-                <li>..u - Start dinner</li>
+                <li>18u - Ontvangst & receptie</li>
+                <li>20u - Start dinner</li>
                 <li>..u - Start dansfeest</li>
                 <li>..u - Einde feest</li>
               </ul>
               <p class="font-bold">
-                Zaterdag, 19 juli, 2025 — .. — Hof ter Rode Poorte, Ropoortstraatje 1, 9770 Kruisem
+                Zaterdag, 19 juli, 2025 — .. — Hof ter Rode Poorte,
+                Ropoortstraatje 1, 9770 Kruisem
               </p>
             </div>
           </div>
@@ -467,16 +673,74 @@
       </div>
     </section>
 
-    <section id="cadeau" class="flex flex-col items-center justify-center h-dvh w-screen bg-primary pt-5">
+    <section
+      id="dresscode"
+      class="flex flex-col items-center justify-center h-dvh w-screen pt-5"
+    >
+      <div class="p-2 pt-0">
+        <h1 class="text-4xl md:text-6xl">Dresscode</h1>
+      </div>
+      <div class="p-2"><h2 class="text-2xl md:text-3xl">Divas</h2></div>
+      <div class="grid grid-cols-3 md:grid-cols-3 gap-3">
+        <img
+          class="object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvw-20px)] max-w-[calc(33dvw-20px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
+          src="{{ url_for('static', filename='images/dresscode-f-1.jpeg') }}"
+          alt="dresscode f 1"
+        />
+        <img
+          class="object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvw-20px)] max-w-[calc(33dvw-20px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
+          src="{{ url_for('static', filename='images/dresscode-f-2.jpeg') }}"
+          alt="dresscode f 2"
+        />
+        <img
+          class="object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvw-20px)] max-w-[calc(33dvw-20px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
+          src="{{ url_for('static', filename='images/dresscode-f-3.jpeg') }}"
+          alt="dresscode f 3"
+        />
+      </div>
+
+      <div class="p-2"><h2 class="text-2xl md:text-3xl">Gents</h2></div>
+      <div class="grid grid-cols-2 gap-3">
+        <img
+          class="object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvh-75px)] max-w-[calc(33dvh-75px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
+          src="{{ url_for('static', filename='images/dresscode-m-1.jpeg') }}"
+          alt="dresscode m 1"
+        />
+        <img
+          class="object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvh-75px)] max-w-[calc(33dvh-75px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
+          src="{{ url_for('static', filename='images/dresscode-m-2.jpeg') }}"
+          alt="dresscode m2"
+        />
+      </div>
+    </section>
+
+    <section
+      id="cadeau"
+      class="flex flex-col items-center justify-center h-dvh w-screen pt-5"
+    >
       <div class="p-4"><h1 class="text-4xl md:text-6xl">Cadeautip</h1></div>
+
+      <div class="wrapper">
+        <div class="lid one"></div>
+        <div class="lid two"></div>
+        <div class="envelope"></div>
+        <div class="letter">
+          <p>
+            Mocht u ons met iets leuks willen verrassen, hopen wij dat het in
+            een envelopje zal passen of rek.nr ..
+          </p>
+        </div>
+      </div>
+
       <p class="p-4">
-        Mocht u ons met iets leuks willen verrassen, hopen wij dat het in een envelopje zal passen of rek.nr ..
+        Mocht u ons met iets leuks willen verrassen, hopen wij dat het in een
+        envelopje zal passen of rek.nr ..
       </p>
     </section>
 
     <section
       id="getuigen"
-      class="grid grid-cols-1 gap-2 md:grid-cols-2 items-center justify-center h-dvh w-screen bg-primary pt-5"
+      class="grid grid-cols-1 gap-2 md:grid-cols-2 items-center justify-center h-dvh w-screen pt-5"
     >
       <div class="flex flex-col justify-center items-center gap-1">
         <h1 class="text-4xl md:text-6xl">Getuige Marino</h1>
@@ -500,14 +764,14 @@
 
     <section
       id="bruidskindjes"
-      class="flex flex-col items-center justify-center h-dvh w-screen bg-slate-100 gap-4 pt-5"
+      class="flex flex-col items-center justify-center h-dvh w-screen gap-4 pt-5"
     >
       <div><h1 class="text-4xl md:text-6xl">Bruidskindjes</h1></div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div class="flex flex-col gap-1 justify-center items-center">
           <img
             class="rounded-full object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvh-75px)] max-w-[calc(33dvh-75px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
-            src="{{ url_for('static', filename='images/Aurelie De Wispelaere.jpg') }}"
+            src="{{ url_for('static', filename='images/Aurelie De Wispelaere2.jpg') }}"
             alt="Aurélie De Wispelaere"
           />
           <p>Aurélie De Wispelaere</p>
@@ -515,7 +779,7 @@
         <div class="flex flex-col gap-1 justify-center items-center">
           <img
             class="rounded-full object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvh-75px)] max-w-[calc(33dvh-75px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
-            src="{{ url_for('static', filename='images/Gaston De Wispelaere4.jpg') }}"
+            src="{{ url_for('static', filename='images/Gaston De Wispelaere5cut.jpg') }}"
             alt="Gastón De Wispelaere"
           />
           <p>Gastón De Wispelaere</p>
@@ -530,6 +794,7 @@
         </div>
       </div>
     </section>
+
     <section
       id="fotos"
       class="flex flex-col items-center justify-start h-dvh w-screen bg-slate-100 gap-4 pt-10"
@@ -556,14 +821,21 @@
       end
       "
     >
-      <div class="image-container grid grid-cols-2 md:grid-cols-4 gap-1 w-full px-1"></div>
+      <div
+        class="image-container grid grid-cols-2 md:grid-cols-4 gap-1 w-full px-1"
+      ></div>
       <div id="pagination" class="flex flex-row mt-auto gap-2 mb-3"></div>
-      <div id="image-viewer-container" class="fixed inset-0 hidden items-center justify-center md:px-20">
+      <div
+        id="image-viewer-container"
+        class="fixed inset-0 hidden items-center justify-center md:px-20"
+      >
         <div
           class="absolute inset-0 bg-black bg-opacity-90"
           _="on click toggle between .hidden and .flex on #image-viewer-container end"
         ></div>
-        <div class="z-10 relative flex w-full flex-col items-center justify-center gap-4 bg-black">
+        <div
+          class="z-10 relative flex w-full flex-col items-center justify-center gap-4 bg-black"
+        >
           <button
             class="flex items-center justify-center text-xl absolute top-1 right-1 w-8 h-8 text-white bg-black bg-opacity-30"
             _="on click toggle between .hidden and .flex on #image-viewer-container end"
