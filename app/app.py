@@ -14,10 +14,11 @@ def index():
 def send_rsvp():
     if request.method == "POST":
         print('data', request.form)
-        FIELDS = ['name', 'first-name', 'email', 'attend', ]
+        FIELDS = ['name', 'first-name', 'email', 'attend' ]
+        print(os.getenv("MAIL_USERNAME"))
         mail_message = Message(
             "Hello!",
-            recipients=["pinnewaert@gmail.com"],
+            recipients=[os.getenv("MAIL_USERNAME")],
         )
         mail_message.body = "This is a test"
         mail.send(mail_message)
