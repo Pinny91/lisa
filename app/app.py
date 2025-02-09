@@ -13,6 +13,8 @@ def index():
 @app.route("/rsvp", methods=("GET", "POST"))
 def send_rsvp():
     if request.method == "POST":
+        print('data', request.form)
+        FIELDS = ['name', 'first-name', 'email', 'attend', ]
         mail_message = Message(
             "Hello!",
             recipients=["pinnewaert@gmail.com"],
