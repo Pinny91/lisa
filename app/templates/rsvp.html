@@ -78,9 +78,15 @@
     </header>
     <section
       id="rsvp"
-      class="flex items-center justify-center w-screen bg-primary p-4"
+      class="flex items-center justify-center w-screen !bg-primary p-4"
     >
-      <form class="flex flex-col gap-2 w-[500px]">
+      <form
+        method="POST"
+        action="/rsvp"
+        hx-swap="outerHTML"
+        hx-target="this"
+        class="flex flex-col gap-2 w-[500px]"
+      >
         <div class="flex flex-col gap-4">
           <h1 class="text-4xl">Ben Jij Erbij?</h1>
           <p class="text-sm">Laat ons weten of je aanwezig bent</p>
@@ -121,32 +127,34 @@
                 required
                 type="radio"
                 name="attend"
-                value="true"
-                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none ring-offset-gray-800 bg-gray-700"
+                value="cermonie"
+                class="checkbox-true col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none ring-offset-gray-800 bg-gray-700"
               />
               <div
-                id="attend-yes-dot"
-                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+                class="checkbox-dot-true col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary pointer-events-none"
               ></div>
             </div>
-            <label for="true">Wij zijn graag aanwezig vanaf de ceremonie</label>
+            <label for="attend-yes"
+              >Wij zijn graag aanwezig vanaf de ceremonie</label
+            >
           </div>
           <div class="flex flex-row gap-4">
             <div class="grid place-items-center">
               <input
-                id="attend-yes"
+                id="attend-reception"
                 required
                 type="radio"
                 name="attend"
-                value="true"
-                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
+                value="receptie"
+                class="checkbox-true col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
               />
               <div
-                id="attend-yes-dot"
-                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+                class="checkbox-dot-true col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary pointer-events-none"
               ></div>
             </div>
-            <label for="true">Wij zijn graag aanwezig vanaf de receptie</label>
+            <label for="attend-reception"
+              >Wij zijn graag aanwezig vanaf de receptie</label
+            >
           </div>
 
           <div class="flex flex-row gap-4">
@@ -156,15 +164,14 @@
                 required
                 type="radio"
                 name="attend"
-                value="false"
-                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
+                value="niet"
+                class="checkbox-false col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
               />
               <div
-                id="attend-no-dot"
-                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+                class="checkbox-dot-false col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
               ></div>
             </div>
-            <label for="false">Sorry wij kunnen er niet bij zijn</label>
+            <label for="attend-no">Sorry wij kunnen er niet bij zijn</label>
           </div>
         </div>
         <div>
@@ -178,58 +185,52 @@
           />
         </div>
         <div class="flex flex-col gap-0.5">
-          <label for="attend">Voedselvoorkeuren</label>
+          <label for="">Voedselvoorkeuren</label>
           <div class="flex flex-row gap-4">
             <div class="grid place-items-center">
               <input
-                id="attend-yes"
-                required
+                id="food-everything"
                 type="checkbox"
-                name="attend"
-                value="true"
-                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none ring-offset-gray-800 bg-gray-700"
+                name="food-everything"
+                value="Ja"
+                class="checkbox-true col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none ring-offset-gray-800 bg-gray-700"
               />
               <div
-                id="attend-yes-dot"
-                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+                class="checkbox-dot-true col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary pointer-events-none"
               ></div>
             </div>
-            <label for="true">Wij lusten alles</label>
+            <label for="food-everything">Wij lusten alles</label>
           </div>
           <div class="flex flex-row gap-4">
             <div class="grid place-items-center">
               <input
-                id="attend-yes"
-                required
+                id="food-vegi"
                 type="checkbox"
-                name="attend"
-                value="true"
-                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
+                name="food-vegi"
+                value="Ja"
+                class="checkbox-true col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
               />
               <div
-                id="attend-yes-dot"
-                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+                class="checkbox-dot-true col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary pointer-events-none"
               ></div>
             </div>
-            <label for="true">Vegetarisch</label>
+            <label for="food-vegi">Vegetarisch</label>
           </div>
 
           <div class="flex flex-row gap-4">
             <div class="grid place-items-center">
               <input
-                id="attend-no"
-                required
+                id="food-algergy"
                 type="checkbox"
-                name="attend"
-                value="false"
-                class="col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
+                name="food-algergy"
+                value="Ja"
+                class="checkbox-true col-start-1 row-start-1 w-4 h-4 rounded-full appearance-none text-primary-600 ring-offset-gray-800 bg-gray-700"
               />
               <div
-                id="attend-no-dot"
-                class="col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary"
+                class="checkbox-dot-true col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary pointer-events-none"
               ></div>
             </div>
-            <label for="false">
+            <label for="food-algergy">
               Allergiëen? (vul deze aan bij de opmerkingen)</label
             >
           </div>

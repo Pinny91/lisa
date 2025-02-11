@@ -1,0 +1,7 @@
+name = "lisa"
+main = "app/app.py"
+compatibility_flags = ["python_workers"]
+compatibility_date = "2025-02-11"
+
+[vars]
+MESSAGE = "This is an environment variable"

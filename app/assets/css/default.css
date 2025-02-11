@@ -60,19 +60,16 @@ h3 {
   background-color: #c9d5b5;
 }
 
-#attend-yes-dot {
+.checkbox-dot-true,
+.checkbox-dot-false {
   display: none;
 }
 
-#attend-no-dot {
-  display: none;
-}
-
-#attend-yes:checked ~ #attend-yes-dot {
+.checkbox-true:checked ~ .checkbox-dot-true {
   display: block;
 }
 
-#attend-no:checked ~ #attend-no-dot {
+.checkbox-false:checked ~ .checkbox-dot-false {
   display: block;
 }
 
@@ -85,7 +82,9 @@ h3 {
 }
 
 .img-heart {
-  mask: radial-gradient(at 70% 31%, #000 29%, #0000 30%), radial-gradient(at 30% 31%, #000 29%, #0000 30%),
+  mask:
+    radial-gradient(at 70% 31%, #000 29%, #0000 30%),
+    radial-gradient(at 30% 31%, #000 29%, #0000 30%),
     linear-gradient(#000 0 0) bottom/100% 50% no-repeat;
   clip-path: polygon(-41% 0, 50% 91%, 141% 0);
 }
