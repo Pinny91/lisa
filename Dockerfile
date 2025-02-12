@@ -13,4 +13,4 @@ EXPOSE 8080
 ENV GUNICORN_CMD_ARGS="--bind=[::]:8080 --workers=2"
 
 # replace APP_NAME with module name
-CMD ["gunicorn", "wsgi:app"]
+CMD ["gunicorn", "app.wsgi:app"]

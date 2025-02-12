@@ -1,6 +1,6 @@
 import os
 from flask import request, Flask, render_template, send_from_directory, abort
-from config import app, mail
+from app.config import app, mail
 from flask_mail import Mail, Message
 from csv import writer
 SECRET_KEY='lisa-marino'
