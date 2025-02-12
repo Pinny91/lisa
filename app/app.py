@@ -34,7 +34,7 @@ def send_rsvp():
 
 
         mail_message = Message(
-            f'{data.get('name')} {data.get('first-name')} - {data.get('attend')} - {data.get('count')}',
+            f"{data.get('name')} {data.get('first-name')} - {data.get('attend')} - {data.get('count')}",
             recipients=[os.getenv("MAIL_USERNAME")],
         )
         mail_message.body = f"""
