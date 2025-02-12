@@ -39,7 +39,7 @@ def send_rsvp():
         )
         mail_message.body = f"""
             {data.get('name')} {data.get('first-name')}
-            {"Komt niet" if data.get('attend') == 'niet' else f'komt naar {data.get('attend')} met {data.get('count')}'}
+            {"Komt niet" if data.get('attend') == 'niet' else f"komt naar {data.get('attend')} met {data.get('count')}"}
             Alles: {data.get('food-everything', 'Nee')} - Vegi:{data.get('food-everything', 'Nee')} - Alergie: {data.get('food-algergy', 'Nee')}
             Opmerkingen: {data.get('remarks')}
         """
