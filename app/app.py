@@ -20,6 +20,7 @@ def send_rsvp():
         csv_file = 'app/static/guest-list.csv'
 
         if not os.path.exists(csv_file):
+            os.makedirs(os.path.dirname(csv_file), exist_ok=True)
             with open(csv_file, 'w', newline='') as f_object:
                 writer_object = writer(f_object)
                 writer_object.writerow(FIELDS)  # Write the headers
