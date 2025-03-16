@@ -1,5 +1,5 @@
 import os
-from flask import request, Flask, render_template, send_from_directory, abort
+from flask import request, Flask, render_template, send_from_directory, abort, send_file
 from app.config import app, mail
 from flask_mail import Mail, Message
 from csv import writer
@@ -55,4 +55,7 @@ def download_file():
     if key != SECRET_KEY:
         abort(403, description="Forbidden: Invalid token")
 
-    return send_from_directory(directory='static', path='guest-list.csv', as_attachment=True)
+    if not os.path.exists('app/static/guest-list.csv'):
+        print('something is wrong?')
+
+    return send_file('static/guest-list.csv')
