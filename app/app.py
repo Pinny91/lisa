@@ -17,7 +17,7 @@ def send_rsvp():
         data = request.form.to_dict()
         print(data)
         FIELDS = ['name', 'first-name', 'email', 'attend', 'count', 'food-everything', 'food-vegi', 'food-algergy', 'remarks' ]
-        csv_file = 'app/static/guest-list.csv'
+        csv_file = 'static/guest-list.csv'
 
         if not os.path.exists(csv_file):
             os.makedirs(os.path.dirname(csv_file), exist_ok=True)
@@ -54,5 +54,14 @@ def download_file():
     key = request.args.get('key')
     if key != SECRET_KEY:
         abort(403, description="Forbidden: Invalid token")
+
+    csv_file = 'static/guest-list.csv'
+    FIELDS = ['name', 'first-name', 'email', 'attend', 'count', 'food-everything', 'food-vegi', 'food-algergy', 'remarks' ]
+
+    if not os.path.exists(csv_file):
+        os.makedirs(os.path.dirname(csv_file), exist_ok=True)
+        with open(csv_file, 'w', newline='') as f_object:
+            writer_object = writer(f_object)
+            writer_object.writerow(FIELDS)  # Write the headers
 
     return send_file('static/guest-list.csv')
