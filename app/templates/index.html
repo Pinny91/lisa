@@ -173,13 +173,13 @@
 
 <body hx-boost="true" class="bg-primary">
   <main>
-    <section id="hero" class="flex items-center justify-center relative">
+    <section id="hero" class="flex items-center justify-center relative h-dvh">
       <div
         class="flex flex-col opacity-0 transition-opacity duration-[4000ms] ease-linear"
         _="init add .opacity-100"
       >
         <img
-          class="h-[600px] md:w-full rounded-full px-5 mx-4 bg-white object-contain shadow-custom md:py-4"
+          class="h-[calc(100dvh-100px)] md:w-full rounded-full px-5 mx-4 bg-white object-contain shadow-custom md:py-4"
           src="{{ url_for('static', filename='images/logo3.jpeg') }}"
         />
       </div>
@@ -263,8 +263,9 @@
         <ul class="flex flex-col gap-2 w-full">
           <li class="border-b-2 border-primary first:border-t-2">
             <a
-              href="/#bruid"
+              href="#bruid"
               class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
             >
               Bruid & Bruidegom
             </a>
@@ -273,6 +274,7 @@
             <a
               href="/#waar"
               class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
             >
               Waar & Wanneer
             </a>
@@ -281,6 +283,7 @@
             <a
               href="/#cadeau"
               class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
             >
               Cadeautip
             </a>
@@ -289,6 +292,7 @@
             <a
               href="/#getuigen"
               class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
             >
               Getuigen
             </a>
@@ -297,6 +301,7 @@
             <a
               href="/#bruidskindjes"
               class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
             >
               Bruidskindjes
             </a>
@@ -305,6 +310,7 @@
             <a
               href="/#fotos"
               class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
             >
               Foto`s
             </a>
@@ -313,6 +319,7 @@
             <a
               href="/rsvp"
               class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
               hx-swap="transition:true"
             >
               Laat weten of jullie kunnen komen
@@ -359,6 +366,7 @@
           style="filter: drop-shadow(0 0 20px #b38073)"
         >
           <img
+            loading="lazy"
             class="img-heart object-cover bg-slate-300 mt-5 w-[calc(100vw-100px)] h-[calc(100vw-100px)] max-h-[calc(50dvh-100px)] max-w-[calc(50dvh-100px)] md:w-[calc(50vw-100px)] md:h-[calc(50vw-100px)]"
             src="{{ url_for('static', filename='images/marino-lisa-3.jpg') }}"
             alt="Lisa & Marino"
@@ -382,6 +390,7 @@
       class="flex flex-col items-center justify-center h-dvh w-screen gap-8 pt-5"
     >
       <img
+        loading="lazy"
         class="rounded-full object-cover bg-slate-300 w-[calc(100vw-40px)] h-[calc(100vw-40px)] max-h-[calc(50dvh-40px)] max-w-[calc(50dvh-40px)] md:w-[calc(50vw-40px)] md:h-[calc(50vw-40px)]"
         src="{{ url_for('static', filename='images/lisa.jpg') }}"
         alt="Lisa"
@@ -403,6 +412,7 @@
       class="flex flex-col gap-4 items-center justify-center h-dvh w-screen pt-5"
     >
       <img
+        loading="lazy"
         class="rounded-full object-cover bg-slate-300 w-[calc(100vw-40px)] h-[calc(100vw-40px)] max-h-[calc(50dvh-40px)] max-w-[calc(50dvh-40px)] md:w-[calc(50vw-40px)] md:h-[calc(50vw-40px)]"
         src="{{ url_for('static', filename='images/marino2.jpg') }}"
         alt="Marino"
@@ -444,6 +454,7 @@
                 title="Hof ter Rode Poorte"
               >
                 <img
+                  loading="lazy"
                   class="w-10 h-10"
                   src="{{ url_for('static', filename='images/location-icon.svg') }}"
                 />
@@ -669,21 +680,25 @@
         <p class="text-md">We vragen om in deze tinten te komen:</p>
         <div class="grid grid-cols-4 gap-0 w-fit bg-white p-1 rounded">
           <img
+            loading="lazy"
             class="object-cover bg-slate-300 w-[40px] h-[40px] max-h-[40px] max-w-[40px]"
             src="{{ url_for('static', filename='images/dresscode-color-1.jpg') }}"
             alt="dresscode color 1"
           />
           <img
+            loading="lazy"
             class="object-cover bg-slate-300 w-[40px] h-[40px] max-h-[40px] max-w-[40px]"
             src="{{ url_for('static', filename='images/dresscode-color-2.jpg') }}"
             alt="dresscode color 2"
           />
           <img
+            loading="lazy"
             class="object-cover bg-slate-300 w-[40px] h-[40px] max-h-[40px] max-w-[40px]"
             src="{{ url_for('static', filename='images/dresscode-color-3.jpg') }}"
             alt="dresscode color 3"
           />
           <img
+            loading="lazy"
             class="object-cover bg-slate-300 w-[40px] h-[40px] max-h-[40px] max-w-[40px]"
             src="{{ url_for('static', filename='images/dresscode-color-4.jpg') }}"
             alt="dresscode color 4"
@@ -692,16 +707,19 @@
       </div>
       <div class="grid grid-cols-3 md:grid-cols-3 gap-3">
         <img
+          loading="lazy"
           class="object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvw-20px)] max-w-[calc(33dvw-20px)] md:max-h-[calc(45dvh-75px)] md:max-w-[calc(45dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
           src="{{ url_for('static', filename='images/dresscode-f-1.jpeg') }}"
           alt="dresscode f 1"
         />
         <img
+          loading="lazy"
           class="object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvw-20px)] max-w-[calc(33dvw-20px)] md:max-h-[calc(45dvh-75px)] md:max-w-[calc(45dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
-          src="{{ url_for('static', filename='images/dresscode-f-4.png') }}"
+          src="{{ url_for('static', filename='images/dresscode-f-5.jpeg') }}"
           alt="dresscode f 2"
         />
         <img
+          loading="lazy"
           class="object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvw-20px)] max-w-[calc(33dvw-20px)] md:max-h-[calc(45dvh-75px)] md:max-w-[calc(45dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
           src="{{ url_for('static', filename='images/dresscode-f-3.jpeg') }}"
           alt="dresscode f 3"
@@ -711,16 +729,19 @@
       <div class="p-2"><h2 class="text-2xl md:text-3xl">Gentleman</h2></div>
       <div class="grid grid-cols-3 gap-3">
         <img
+          loading="lazy"
           class="object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvw-20px)] max-w-[calc(33dvw-20px)] md:max-h-[calc(45dvh-75px)] md:max-w-[calc(45dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
           src="{{ url_for('static', filename='images/dresscode-m-1.jpeg') }}"
           alt="dresscode m 1"
         />
         <img
+          loading="lazy"
           class="object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvw-20px)] max-w-[calc(33dvw-20px)] md:max-h-[calc(45dvh-75px)] md:max-w-[calc(45dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
           src="{{ url_for('static', filename='images/dresscode-m-2.jpeg') }}"
           alt="dresscode m2"
         />
         <img
+          loading="lazy"
           class="object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvw-20px)] max-w-[calc(33dvw-20px)] md:max-h-[calc(45dvh-75px)] md:max-w-[calc(45dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
           src="{{ url_for('static', filename='images/dresscode-m-3.jpeg') }}"
           alt="dresscode m2"
@@ -756,6 +777,7 @@
       <div class="flex flex-col justify-center items-center gap-1">
         <h1 class="text-4xl md:text-6xl">Getuige Marino</h1>
         <img
+          loading="lazy"
           class="rounded-full object-cover bg-slate-300 w-[calc(100vw-125px)] h-[calc(100vw-125px)] max-h-[calc(50dvh-125px)] max-w-[calc(50dvh-125px)] md:w-[calc(50vw-125px)] md:h-[calc(50vw-125px)]"
           src="{{ url_for('static', filename='images/Massimo Van Haver.jpeg') }}"
           alt="Massimo Van Haver"
@@ -765,6 +787,7 @@
       <div class="flex flex-col justify-center items-center gap-1">
         <h1 class="text-4xl md:text-6xl">Getuige Lisa</h1>
         <img
+          loading="lazy"
           class="rounded-full object-cover bg-slate-300 w-[calc(100vw-125px)] h-[calc(100vw-125px)] max-h-[calc(50dvh-125px)] max-w-[calc(50dvh-125px)] md:w-[calc(50vw-125px)] md:h-[calc(50vw-125px)]"
           src="{{ url_for('static', filename='images/Marijke Brain2.jpg') }}"
           alt="Marijke Brain"
@@ -781,6 +804,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div class="flex flex-col gap-1 justify-center items-center">
           <img
+            loading="lazy"
             class="rounded-full object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvh-75px)] max-w-[calc(33dvh-75px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
             src="{{ url_for('static', filename='images/Aurelie De Wispelaere2.jpg') }}"
             alt="Aurélie De Wispelaere"
@@ -789,6 +813,7 @@
         </div>
         <div class="flex flex-col gap-1 justify-center items-center">
           <img
+            loading="lazy"
             class="rounded-full object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvh-75px)] max-w-[calc(33dvh-75px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
             src="{{ url_for('static', filename='images/Gaston De Wispelaere5cut.jpg') }}"
             alt="Gastón De Wispelaere"
@@ -797,6 +822,7 @@
         </div>
         <div class="flex flex-col gap-1 justify-center items-center">
           <img
+            loading="lazy"
             class="rounded-full object-cover bg-slate-300 w-[calc(100vw-75px)] h-[calc(100vw-75px)] max-h-[calc(33dvh-75px)] max-w-[calc(33dvh-75px)] md:max-h-[calc(80dvh-75px)] md:max-w-[calc(80dvh-75px)] md:w-[calc(33vw-75px)] md:h-[calc(33vw-75px)]"
             src="{{ url_for('static', filename='images/Otis Van Haver.jpg') }}"
             alt="Otis Van Haver"
@@ -806,6 +832,16 @@
       </div>
     </section>
 
+    <section
+      id="fotos"
+      class="flex flex-col items-center justify-start w-screen bg-slate-100 gap-4 pt-10 h-full"
+    >
+      <div class="p-2 pt-0">
+        <h1 class="text-4xl md:text-6xl">Foto's</h1>
+        <p>Hier komen de foto's van de huwelijksdag</p>
+      </div>
+    </section>
+    {#
     <section
       id="fotos"
       class="flex flex-col items-center justify-start h-dvh w-screen bg-slate-100 gap-4 pt-10"
@@ -871,6 +907,7 @@
         </div>
       </div>
     </section>
+    #}
   </main>
 
   <script
