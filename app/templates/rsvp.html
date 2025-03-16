@@ -42,14 +42,20 @@
   rel="shortcut icon"
   href="{{ url_for('static', filename='images/favicon.png') }}"
 />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/navigation.css') }}"
+/>
 
 <body hx-boost="true" class="bg-primary">
-  <main>
-    <header class="sticky top-0 z-10 flex justify-end bg-transparent">
-      <a href="#rsvp" class="mr-5">
+  <main class="h-dvh">
+    <header
+      class="sticky top-0 z-10 flex justify-end items-center bg-transparent gap-2"
+    >
+      <a href="/rsvp" class="z-[9999]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="w-10 h-10 md:w-14 md:h-14"
+          class="w-8 h-8 md:w-12 md:h-12"
           viewBox="-1 -40 42 40"
         >
           <path
@@ -75,6 +81,116 @@
           <text x="7" y="-23" class="font-Playwrite text-[8px]">RSVP</text>
         </svg>
       </a>
+      <button
+        class="hamburger-icon z-[9999] flex items-center justify-center w-10 h-10 md:w-14 md:h-14 hover:text-gray-400"
+      >
+        <label
+          for="dropdown"
+          class="flex cursor-pointer flex-col items-center justify-center"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg
+            id="up-icon-svg"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 8"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7"
+            />
+          </svg>
+          <svg
+            id="hamburger-icon-svg"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15"
+            />
+          </svg>
+        </label>
+        <input type="checkbox" id="dropdown" />
+      </button>
+
+      <div class="navigation flex flex-col items-center justify-center">
+        <ul class="flex flex-col gap-2 w-full">
+          <li class="border-b-2 border-primary first:border-t-2">
+            <a
+              href="/#bruid"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
+            >
+              Bruid & Bruidegom
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
+              href="/#waar"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
+            >
+              Waar & Wanneer
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
+              href="/#cadeau"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
+            >
+              Cadeautip
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
+              href="/#getuigen"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
+            >
+              Getuigen
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
+              href="/#bruidskindjes"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
+            >
+              Bruidskindjes
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
+              href="/#fotos"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
+            >
+              Foto`s
+            </a>
+          </li>
+          <li class="border-b-2 border-primary">
+            <a
+              href="/rsvp"
+              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
+              _="on click set #dropdown.checked to false end"
+              hx-swap="transition:true"
+            >
+              Laat weten of jullie kunnen komen
+            </a>
+          </li>
+        </ul>
+      </div>
     </header>
     <section
       id="rsvp"
