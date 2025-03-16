@@ -64,4 +64,4 @@ def download_file():
             writer_object = writer(f_object)
             writer_object.writerow(FIELDS)  # Write the headers
 
-    return send_file('static/guest-list.csv')
+    return send_file('/static/guest-list.csv')
