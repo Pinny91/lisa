@@ -55,7 +55,4 @@ def download_file():
     if key != SECRET_KEY:
         abort(403, description="Forbidden: Invalid token")
 
-    if not os.path.exists('app/static/guest-list.csv'):
-        print('something is wrong?')
-
     return send_file('static/guest-list.csv')
