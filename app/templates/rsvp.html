@@ -295,6 +295,8 @@
           <input
             required
             type="number"
+            pattern="[0-9]*"
+            inputmode="numeric"
             size="40"
             name="count"
             class="text-sm rounded-lg block w-full p-2.5 bg-gray-700 text-white focus:border-none focus:outline-none"
@@ -330,7 +332,9 @@
                 class="checkbox-dot-true col-start-1 row-start-1 w-2 h-2 rounded-full bg-primary pointer-events-none"
               ></div>
             </div>
-            <label for="food-vegi">Vegetarisch</label>
+            <label for="food-vegi">
+              Vegetarisch (vul het aantal bij opmerkingen)</label
+            >
           </div>
 
           <div class="flex flex-row gap-4">
@@ -347,7 +351,8 @@
               ></div>
             </div>
             <label for="food-algergy">
-              Allergiëen? (vul deze aan bij de opmerkingen)</label
+              Allergiëen? (vul deze aan bij de opmerkingen en ook met
+              hoeveel)</label
             >
           </div>
         </div>
