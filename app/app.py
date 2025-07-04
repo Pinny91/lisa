@@ -8,15 +8,10 @@ from csv import writer
 SECRET_KEY='lisa-marino'
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-UPLOAD_FOLDER = 'app/static/images'
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
 
 @app.route("/")
 def index():
-    image_list = os.listdir(os.path.join(app.static_folder, "images/upload"))
-    image_list.sort()
-    return render_template("index.html", image_list=image_list)
+    return render_template("index.html")
 
 
 @app.route("/rsvp", methods=("GET", "POST"))
