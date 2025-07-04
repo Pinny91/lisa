@@ -1,6 +1,6 @@
 import os
 import time
-from PIL import Image
+from PIL import Image, ImageOps
 from flask import request, Flask, render_template, send_from_directory, abort, send_file
 from app.config import app, mail
 from flask_mail import Mail, Message
@@ -73,6 +73,7 @@ def fotos():
                 save_file_name = str(time.time()) + file.filename
                 uploaded.append(file.filename)
                 img = Image.open(file)
+                img = ImageOps.exif_transpose(img)
                 webp_filename = save_file_name.rsplit('.', 1)[0] + '.webp'
                 webp_path = os.path.join(file_upload_path, webp_filename)
                 img.save(webp_path, 'WEBP')
