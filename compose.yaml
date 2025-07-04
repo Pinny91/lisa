@@ -3,3 +3,6 @@ services:
     build: .
     ports:
       - "8000:8080"
+    volumes:
+      - static:/app/static
+      - images:/app/assets/images/upload
