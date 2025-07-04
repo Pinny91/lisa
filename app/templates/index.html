@@ -171,7 +171,7 @@
   }
 </style>
 
-<body hx-boost="true" class="bg-primary">
+<body class="bg-primary">
   <main>
     <section id="hero" class="flex items-center justify-center relative h-dvh">
       <div
@@ -188,35 +188,13 @@
     <header
       class="sticky top-0 z-10 flex justify-end items-center bg-transparent gap-2"
     >
-      <a href="/rsvp" class="z-[9999]">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-8 h-8 md:w-12 md:h-12"
-          viewBox="-1 -40 42 40"
-        >
-          <path
-            d="M 4 0 C 2 0 0 -2 0 -4 L 0 -20 C 0 -21 3 -22 4 -22 L 20 -10 L 36 -22 C 37 -22 40 -21 40 -20 L 40 -4 C 40 -2 38 0 36 0 L 4 0 M 5 -21"
-            stroke="#000000"
-            stroke-width="1.5"
-            fill="white"
-          />
-          <path
-            d="M 20 -10 L 20 -10 M 5 -21 L 5 -34 C 5 -35 6 -35 6 -35 L 34 -35 C 34 -35 35 -35 35 -34 L 35 -21 L 20 -10 L 5 -21"
-            stroke="#000000"
-            stroke-width="1."
-            fill="white"
-          />
-          <line
-            stroke-width=".8"
-            stroke="#000000"
-            x1="10"
-            y1="-21"
-            x2="29"
-            y2="-21"
-          ></line>
-          <text x="7" y="-23" class="font-Playwrite text-[8px]">RSVP</text>
-        </svg>
+      <a
+        href="/fotos"
+        class="px-1 py-2 text-xl flex justify-center items-center hover:text-white transition-colors"
+      >
+        <i class="fa-solid fa-image"></i>
       </a>
+
       <button
         class="hamburger-icon z-[9999] flex items-center justify-center w-10 h-10 md:w-14 md:h-14 hover:text-gray-400"
       >
@@ -308,21 +286,11 @@
           </li>
           <li class="border-b-2 border-primary">
             <a
-              href="/#fotos"
+              href="/fotos"
               class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
               _="on click set #dropdown.checked to false end"
             >
               Foto`s
-            </a>
-          </li>
-          <li class="border-b-2 border-primary">
-            <a
-              href="/rsvp"
-              class="px-1 py-2 w-full text-xl flex justify-center items-center hover:text-primary"
-              _="on click set #dropdown.checked to false end"
-              hx-swap="transition:true"
-            >
-              Laat weten of jullie kunnen komen
             </a>
           </li>
         </ul>
@@ -835,82 +803,20 @@
 
     <section
       id="fotos"
-      class="flex flex-col items-center justify-start w-screen bg-slate-100 gap-4 pt-10 h-full"
+      class="flex flex-col items-center justify-start w-screen bg-slate-100 gap-4 h-full"
     >
-      <div class="p-2 pt-0">
-        <h1 class="text-4xl md:text-6xl">Foto's</h1>
-        <p>Hier komen de foto's van de huwelijksdag</p>
-      </div>
-    </section>
-    {#
-    <section
-      id="fotos"
-      class="flex flex-col items-center justify-start h-dvh w-screen bg-slate-100 gap-4 pt-10"
-      _="init 
-          call calculateImagesPerPage({{image_list}})
-          set $x to the result
-          log $x
-          trigger updateImages
-      end
-      on updateImages
-        set html to ' '
-        for index in $x.imagePerPageArray
-          set imageIndex to index + (($x.currentPage -1)*$x.imagesPerPage)
-          call renderImageDiv($x.imageList[imageIndex])
-          append the result to html
-        end
-        put html into .image-container
-        set html to ' '           
-        for index in $x.totalPageArray
-          call renderPageButton(index, $x.currentPage)
-          append the result to html
-        end
-        put html into #pagination
-      end
-      "
-    >
-      <div
-        class="image-container grid grid-cols-2 md:grid-cols-4 gap-1 w-full px-1"
-      ></div>
-      <div id="pagination" class="flex flex-row mt-auto gap-2 mb-3"></div>
-      <div
-        id="image-viewer-container"
-        class="fixed inset-0 hidden items-center justify-center md:px-20"
-      >
-        <div
-          class="absolute inset-0 bg-black bg-opacity-90"
-          _="on click toggle between .hidden and .flex on #image-viewer-container end"
-        ></div>
-        <div
-          class="z-10 relative flex w-full flex-col items-center justify-center gap-4 bg-black"
-        >
-          <button
-            class="flex items-center justify-center text-xl absolute top-1 right-1 w-8 h-8 text-white bg-black bg-opacity-30"
-            _="on click toggle between .hidden and .flex on #image-viewer-container end"
+      <div class="p-2 pt-0 flex flex-col gap-4 flex-1">
+        <div class="flex flex-1 items-center justify-center">
+          <a
+            href="/fotos"
+            class="px-4 py-3 rounded bg-blend-darken backdrop-brightness-90 hover:backdrop-brightness-75 shadow-md"
           >
-            &#10006;
-          </button>
-          <img
-            src="{{ url_for('static', filename='images/view/{image_name}'.format(image_name=image_list[0])) }}"
-            class="big-image h-[calc(100vh-15rem)] w-full object-contain"
-          />
-          <div
-            class="flex w-full max-w-[100vw-10rem] md:max-w-[100vw-10rem] flex-row gap-2 overflow-x-scroll bg-white p-4"
-          >
-            {% for image_name in image_list %}
-            <img
-              src="{{ url_for('static', filename='images/view/{image_name}'.format(image_name=image_name)) }}"
-              class="h-20 w-20 cursor-pointer object-contain"
-              _="on click put '{{ url_for('static', filename='images/view/{image_name}'.format(image_name=image_name)) }}' into  .big-image.src"
-            />
-            {% endfor %}
-          </div>
+            Klik hier om naar de foto pagina te gaan.
+          </a>
         </div>
       </div>
     </section>
-    #}
   </main>
-
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl6FybACdGCH1yT1hjTtvOCrlmNgYEfJQ&loading=async&libraries=marker&v=beta&solution_channel=GMP_CCS_complexmarkers_v2"
     defer

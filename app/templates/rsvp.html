@@ -197,8 +197,7 @@
       class="flex items-center justify-center w-screen !bg-primary p-4"
     >
       <form
-        method="POST"
-        action="/rsvp"
+        hx-post="/rsvp"
         hx-swap="outerHTML"
         hx-target="this"
         class="flex flex-col gap-2 w-[500px]"

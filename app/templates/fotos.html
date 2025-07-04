@@ -1,0 +1,309 @@
+<!doctype html>
+<title>{% block title %}{% endblock %}</title>
+<!-- HTMX -->
+<meta name="robots" content="noindex" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<script src="{{ url_for('static', filename='js/htmx.js') }}"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="{{ url_for('static', filename='js/tailwind.config.js') }}"></script>
+<script src="{{ url_for('static', filename='js/hyperscript.js') }}"></script>
+<script
+  defer
+  async
+  src="https://kit.fontawesome.com/e0c8bcf022.js"
+  crossorigin="anonymous"
+></script>
+
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/fotos.css') }}"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Meddon&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Playwrite+NG+Modern:wght@100..400&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400..700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/navigation.css') }}"
+/>
+
+<link
+  rel="shortcut icon"
+  href="{{ url_for('static', filename='images/favicon.png') }}"
+/>
+<style type="text/tailwindcss">
+  p {
+    font-size: 1rem;
+  }
+</style>
+
+<body lang="nl" class="">
+  <main class="relative">
+    <header
+      class="absolute top-0 w-full bg-primary h-10 z-10 flex items-center gap-2 px-4"
+    >
+      <a
+        href="/"
+        class="px-1 py-2 text-xl flex justify-center items-center hover:text-white transition-colors"
+      >
+        <i class="fa-solid fa-house"></i>
+      </a>
+      <a
+        href="?upload=true"
+        class="px-1 py-2 text-xl flex justify-center items-center hover:text-white transition-colors ml-auto"
+      >
+        <i class="fa-solid fa-upload"></i>
+      </a>
+    </header>
+
+    <section
+      id="fotos"
+      class="flex flex-col items-center justify-center w-screen h-dvh bg-slate-100 gap-4 pt-11"
+      _="init 
+          call calculateImagesPerPage({{image_list}})
+          set $x to the result
+          log $x
+          trigger updateImages
+      end
+      on updateImages
+        set html to ' '
+        for index in $x.imagePerPageArray
+          set imageIndex to index + (($x.currentPage -1)*$x.imagesPerPage)
+          call renderImageDiv($x.imageList[imageIndex])
+          append the result to html
+        end
+        put html into .image-container
+        set html to ' '           
+        for index in $x.totalPageArray
+          call renderPageButton(index, $x.currentPage)
+          append the result to html
+        end
+        put html into #pagination
+      end
+      "
+    >
+      <div
+        class="image-container grid grid-cols-2 md:grid-cols-4 gap-1 w-full px-1"
+      ></div>
+      <div id="pagination" class="flex flex-row mt-auto gap-2 mb-3"></div>
+      <div
+        id="image-viewer-container"
+        class="fixed inset-0 hidden items-center justify-center md:px-20 z-50"
+      >
+        <div
+          class="absolute inset-0 bg-black bg-opacity-90"
+          _="on click toggle between .hidden and .flex on #image-viewer-container end"
+        ></div>
+        <div
+          class="z-10 relative flex w-full flex-col items-center justify-center gap-4 bg-black"
+        >
+          <button
+            class="flex items-center justify-center text-xl absolute top-1 right-1 w-8 h-8 text-white bg-black bg-opacity-30"
+            _="on click toggle between .hidden and .flex on #image-viewer-container end"
+          >
+            &#10006;
+          </button>
+          {% if admin %}
+          <button
+            type="button"
+            hx-delete="/fotos"
+            hx-vals="js:{imageUrl: document.getElementById('swipeArea').src}"
+            hx-swap="none"
+            class="flex items-center justify-center text-xl absolute top-1 left-1 h-8 text-red-500 bg-black bg-opacity-30"
+          >
+            Delete
+          </button>
+          {% endif %}
+          <img
+            id="swipeArea"
+            src="{{ url_for('static', filename='images/upload/{image_name}'.format(image_name=image_list[0])) }}"
+            class="big-image h-[calc(100vh-15rem)] w-full object-contain"
+          />
+          <div
+            id="image-list"
+            class="flex w-full max-w-[100vw-10rem] md:max-w-[100vw-10rem] flex-row gap-2 overflow-x-scroll bg-white p-4"
+          >
+            {% for image_name in image_list %}
+            <img
+              src="{{ url_for('static', filename='images/upload/{image_name}'.format(image_name=image_name)) }}"
+              class="h-20 w-20 cursor-pointer object-contain"
+              _="on click put '{{ url_for('static', filename='images/upload/{image_name}'.format(image_name=image_name)) }}' into  .big-image.src"
+            />
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+    <div
+      class="hidden fixed inset-0 bg-opacity-80 bg-white items-center justify-center"
+      _="
+      init if '{{show_upload}}' is 'True' then remove .hidden from me then add .flex to me end 
+      on click if target is me then toggle .hidden on me then toggle .flex on me end
+      "
+    >
+      <form
+        id="form"
+        hx-encoding="multipart/form-data"
+        hx-post="/fotos"
+        hx-target="body"
+        hx-swap="outerHTML"
+        class="w-1/2 bg-white rounded flex p-4 flex-col"
+        _="on htmx:xhr:progress(loaded, total) set #progress.value to (loaded/total)*100"
+      >
+        >
+        <h1 class="text-center w-full text-lg">Upload afbeeldingen</h1>
+        <button class="relative cursor-pointer">
+          Tab om foto's te selecteren
+          <input
+            class="absolute inset-0 opacity-0"
+            id="file-input"
+            name="files"
+            type="file"
+            accept="image/*"
+            multiple
+            _="on change
+            log me.files then
+            if me.files.length > 0
+              then remove .hidden from #submitButton
+            end"
+          />
+        </button>
+        <button
+          id="submitButton"
+          type="submit"
+          class="mt-2 p-2 bg-green-500 text-white rounded hidden"
+        >
+          Upload
+        </button>
+        <progress class="w-full" id="progress" value="0" max="100"></progress>
+      </form>
+    </div>
+  </main>
+
+  <script type="text/hyperscript">
+    js
+      function calculateImagesPerPage(imageList) {
+        let currentPage = 1;
+
+        const viewportHeight = window.innerHeight;
+        const paddingTop = 40; // px
+        const paginationHeight = 40; // Approximate height for pagination controls
+        const availableHeight = viewportHeight - paddingTop - paginationHeight;
+
+        const imageHeight = 144 + 4; // px (image height + gap)
+        const rows = Math.floor(availableHeight / imageHeight);
+
+        const columns = window.innerWidth >= 768 ? 4 : 2; // md:grid-cols-4 vs grid-cols-2
+
+        let imagesPerPage = rows * columns;
+        imagesPerPage = Math.max(imagesPerPage, 1); // Ensure at least 1 image per page
+        const totalPages = Math.ceil(imageList.length / imagesPerPage);
+        currentPage = Math.min(currentPage, totalPages);
+        const imagePerPageArray = [...Array(imagesPerPage).keys()]
+        const totalPageArray = Array.from({length: totalPages}, (_, i) => i + 1)
+        return { imageList, imagesPerPage, totalPages, currentPage, imagePerPageArray, totalPageArray };
+      }
+
+      function renderImageDiv(imageName) {
+        if (!imageName || imageName == '') return ''
+        const imagePath = `/assets/images/upload/${imageName}`
+        return `<div class='flex items-center justify-center'><img class='h-36 w-full object-cover' src='${imagePath}' _='on click put "${imagePath}" into  .big-image.src then toggle between .hidden and .flex on #image-viewer-container end' /></div>`
+      }
+
+      function renderPageButton(pageNumber, currentPage) {
+        return `<div class="w-8 h-8 text-xl flex items-center justify-center border border-primary rounded hover:bg-primary ${pageNumber == currentPage ? 'bg-primary' :''}" _="on click set $x.currentPage to ${pageNumber} then trigger updateImages">${pageNumber}</div>`
+      }
+
+      return {calculateImagesPerPage, renderImageDiv, renderPageButton}
+    end
+  </script>
+  <script>
+    const swipeArea = document.getElementById("swipeArea");
+
+    let startX = 0;
+    let startY = 0;
+    const threshold = 50; // Minimum distance for a swipe
+
+    // For touch devices
+    swipeArea.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    });
+
+    swipeArea.addEventListener("touchend", (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      handleSwipe(startX, endX, startY, endY);
+    });
+
+    // Optional: For mouse drag / swipe detection
+    let isMouseDown = false;
+
+    swipeArea.addEventListener("mousedown", (e) => {
+      isMouseDown = true;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    swipeArea.addEventListener("mouseup", (e) => {
+      if (isMouseDown) {
+        isMouseDown = false;
+        const endX = e.clientX;
+        const endY = e.clientY;
+        handleSwipe(startX, endX, startY, endY);
+      }
+    });
+
+    function handleSwipe(startX, endX, startY, endY) {
+      const deltaX = endX - startX;
+      const deltaY = endY - startY;
+
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > threshold) {
+        const currentSrc = swipeArea.src;
+        const imageList = document.getElementById("image-list");
+        const images = imageList.children;
+        let currentSelectedImage = null;
+
+        for (let i = 0; i < images.length; i++) {
+          if (images[i].tagName === "IMG" && images[i].src === currentSrc) {
+            currentSelectedImage = images[i];
+            break;
+          }
+        }
+
+        if (currentSelectedImage) {
+          if (deltaX > 0) {
+            if (currentSelectedImage.previousElementSibling)
+              swipeArea.src = currentSelectedImage.previousElementSibling.src;
+            console.log("Swiped right!");
+          } else {
+            if (currentSelectedImage.nextElementSibling)
+              swipeArea.src = currentSelectedImage.nextElementSibling.src;
+            console.log("Swiped left!");
+          }
+        }
+      }
+    }
+  </script>
+</body>

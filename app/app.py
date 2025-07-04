@@ -1,13 +1,21 @@
 import os
+import time
+from PIL import Image
 from flask import request, Flask, render_template, send_from_directory, abort, send_file
 from app.config import app, mail
 from flask_mail import Mail, Message
 from csv import writer
 SECRET_KEY='lisa-marino'
 
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+UPLOAD_FOLDER = 'app/static/images'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
 @app.route("/")
 def index():
-    image_list = os.listdir(os.path.join(app.static_folder, "images/view"))
+    image_list = os.listdir(os.path.join(app.static_folder, "images/upload"))
+    image_list.sort()
     return render_template("index.html", image_list=image_list)
 
 
@@ -48,6 +56,57 @@ def send_rsvp():
         return render_template("succes.html")
 
     return render_template("rsvp.html")
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route("/fotos", methods=("GET", "POST", "DELETE"))
+def fotos():
+    file_upload_path = os.path.join(app.static_folder, "images/upload")
+    if not os.path.exists(file_upload_path):
+        os.makedirs(file_upload_path)
+
+    if request.method == "POST":
+        files = request.files.getlist('files')
+        print(files)
+        if not files or all(f.filename == '' for f in files):
+            abort(404, description="No files given")
+ 
+        uploaded = []
+        for file in files:
+            if file.filename != '' and allowed_file(file.filename):
+                save_file_name = str(time.time()) + file.filename
+                uploaded.append(file.filename)
+                img = Image.open(file)
+                webp_filename = save_file_name.rsplit('.', 1)[0] + '.webp'
+                webp_path = os.path.join(file_upload_path, webp_filename)
+                img.save(webp_path, 'WEBP')
+
+        print(uploaded)
+        image_list = os.listdir(file_upload_path)
+        image_list.sort()
+        image_list.reverse()
+        return render_template("fotos.html", image_list=image_list, show_upload=False)
+
+    if request.method == "DELETE":
+        data = request.form.to_dict()
+        image_url = data.get('imageUrl') # Get the 'imageUrl' key from the JSON data
+        image_name = image_url.split('/')[-1]
+        print(image_name)
+        os.remove(f'{file_upload_path}/{image_name}')
+        return  ('', 204)
+
+    show_upload = bool(request.args.get('upload'))
+    admin = bool(request.args.get('admin-hihi'))
+    print(show_upload)
+
+    image_list = os.listdir(file_upload_path)
+    image_list.sort()
+    image_list.reverse()
+
+    print(image_list)
+    return render_template("fotos.html", image_list=image_list, show_upload=show_upload, admin=admin)
+
 
 @app.route("/download", methods=["GET"])
 def download_file():
