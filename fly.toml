@@ -17,7 +17,7 @@ primary_region = 'ams'
   processes = ['app']
 [mounts]
   source = "images"
-  destination = "/app/static"
+  destination = "/app/app/static"
 
 [[vm]]
   memory = '512mb'
