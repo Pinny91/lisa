@@ -1,7 +1,7 @@
 import os
 import time
 from PIL import Image, ImageOps
-from flask import request, Flask, render_template, send_from_directory, abort, send_file
+from flask import request, Flask, render_template, send_from_directory, abort, send_file, Blueprint
 from app.config import app, mail
 from flask_mail import Mail, Message
 from csv import writer
@@ -9,6 +9,7 @@ SECRET_KEY='lisa-marino'
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
+fotos_bp=Blueprint('fotos', __name__, static_folder='static')
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -55,9 +56,10 @@ def send_rsvp():
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route("/fotos", methods=("GET", "POST", "DELETE"))
-def fotos():
-    file_upload_path = os.path.join(app.static_folder, "images/upload")
+
+@fotos_bp.route("/fotos", methods=("GET", "POST", "DELETE"))
+def show_fotos():
+    file_upload_path = os.path.join(fotos_bp.static_folder, "images")
     if not os.path.exists(file_upload_path):
         os.makedirs(file_upload_path)
 
@@ -120,3 +122,6 @@ def download_file():
             writer_object.writerow(FIELDS)  # Write the headers
 
     return send_file('/app/static/guest-list.csv')
+
+
+app.register_blueprint(fotos_bp) # Registered the blueprint

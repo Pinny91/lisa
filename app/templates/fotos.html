@@ -137,7 +137,7 @@
           {% endif %}
           <img
             id="swipeArea"
-            src="{{ url_for('static', filename='images/upload/{image_name}'.format(image_name=image_list[0])) }}"
+            src="{{ url_for('fotos.static', filename='images/{image_name}'.format(image_name=image_list[0])) }}"
             class="big-image h-[calc(100vh-15rem)] w-full object-contain"
           />
           <div
@@ -146,9 +146,9 @@
           >
             {% for image_name in image_list %}
             <img
-              src="{{ url_for('static', filename='images/upload/{image_name}'.format(image_name=image_name)) }}"
+              src="{{ url_for('fotos.static', filename='images/{image_name}'.format(image_name=image_name)) }}"
               class="h-20 w-20 cursor-pointer object-contain"
-              _="on click put '{{ url_for('static', filename='images/upload/{image_name}'.format(image_name=image_name)) }}' into  .big-image.src"
+              _="on click put '{{ url_for('fotos.static', filename='images/{image_name}'.format(image_name=image_name)) }}' into  .big-image.src"
             />
             {% endfor %}
           </div>
@@ -227,7 +227,7 @@
 
       function renderImageDiv(imageName) {
         if (!imageName || imageName == '') return ''
-        const imagePath = `/assets/images/upload/${imageName}`
+        const imagePath = `/static/images/${imageName}`
         return `<div class='flex items-center justify-center'><img class='h-36 w-full object-cover' src='${imagePath}' _='on click put "${imagePath}" into  .big-image.src then toggle between .hidden and .flex on #image-viewer-container end' /></div>`
       }
 
